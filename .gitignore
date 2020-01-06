@@ -1,0 +1,11 @@
+#Ignore .next/
+.next/
+
+#Ignore node_modules/
+node_modules/
+
+#Ignore out/ and build/
+out/
+build/
+
+next.config.js
