@@ -15,6 +15,10 @@ export default function Meta() {
         Twitter: @rich_clark
         */
 
+        /*
+        http://html5doctor.com/html-5-reset-stylesheet/
+        */
+
         html, body, div, span, object, iframe,
         h1, h2, h3, h4, h5, h6, p, blockquote, pre,
         abbr, address, cite, code,
@@ -110,12 +114,11 @@ export default function Meta() {
             vertical-align:middle;
         }
 
+        // My Main CSS Additions
+
         body {
           font-size: 1em;
           font-family: "Roboto", sans-serif;
-          background-color: #232323;
-          color: #FFFFFF;
-
         }
       `}</style>
   </div>
