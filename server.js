@@ -1,7 +1,6 @@
 const express = require('express')
 const next = require('next')
 const bodyParser = require('body-parser')
-const nodemailer = require('nodemailer')
 const mysql = require('mysql')
 const config = require('./next.config.js')
 
@@ -13,38 +12,7 @@ app.prepare().then(() => {
   const server = express()
 
   server.use(bodyParser.urlencoded({ extended: true }))
-  server.use(bodyParser.json())
-
-  server.post('/send', function(req, res) {
-    console.log('Calling post from server')
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'oauth2',
-        user: config.env.email,
-        clientId: config.env.client,
-        clientSecret: config.env.secret,
-        refreshToken: config.env.token
-      }
-    })
-
-    const mailOptions = {
-      from: req.body.email,
-      to: config.env.email,
-      subject: req.body.name,
-      text: req.body.message,
-      replyTo: req.body.email
-    }
-
-    transporter.sendMail(mailOptions, function(err, res) {
-      if (err) {
-        console.error('Nodemailer post error: ', err);
-      }
-      else {
-        console.log('Nodemailer response: ', res)
-      }
-    })
-  })
+  server.use(bodyParser.json()
 
   // Handle Routes Here
   server.get('*', (req, res) => {
@@ -53,7 +21,22 @@ app.prepare().then(() => {
 
   // Do they have access
   server.get('/access/:id', (req, res) => {
-    return handle(req, res)
+    const queryString = "SELECT * from vote WHERE name = ?";
+    const id = req.param.id;
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, [id], (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      }
+      res.json(rows)
+    })
   })
 
   // Toggle voting access
@@ -63,7 +46,21 @@ app.prepare().then(() => {
 
   // Is voting open
   server.get('/open', (req, res) => {
-    return handle(req, res)
+    const queryString = "SELECT * from open";
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      }
+      res.json(rows)
+    })
   })
 
   // Toggle open state
@@ -73,7 +70,21 @@ app.prepare().then(() => {
 
   // Get all votes
   server.get('/tally', (req, res) => {
-    return handle(req, res)
+    const queryString = "SELECT * from vote ORDER BY vote_num DESC";
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      }
+      res.json(rows)
+    })
   })
 
   // Update votes

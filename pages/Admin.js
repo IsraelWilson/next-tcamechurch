@@ -3,8 +3,17 @@ export default class Admin extends React.component {
     super(props);
     this.state = {
       live: false,
-      trustees: []
+      candidates: []
     };
+  }
+
+  getTally() {
+    fetch('/tally').then((res) => res.json()).then((res) => { console.log(res)}).catch((err) => { console.log(err)})
+    })
+  }
+
+  componentDidMount() {
+    getTally()
   }
 
   render() {
