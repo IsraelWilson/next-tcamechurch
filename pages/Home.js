@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '../components/Container.js'
 
-export default class Admin extends React.component {
+export default class Home extends React.component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,20 +10,19 @@ export default class Admin extends React.component {
     };
   }
 
-  getTally() {
-    fetch('/tally').then((res) => res.json()).then((res) => { console.log(res)}).catch((err) => { console.log(err)})
-    })
+  hasAccess() {
+
   }
 
-  componentDidMount() {
-    getTally()
+  login() {
+
   }
 
   render() {
     return (
       <Container>
-        <input>
-        <button></button>
+          <input>
+          <button>Hello</button>
         <style jsx>{`
 
         `}</style>

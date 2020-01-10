@@ -1,12 +1,7 @@
-import React from 'react'
-import Row from '../components/Row.js'
-import Column from '../components/Column.js'
-import ColumnBasis from '../components/ColumnBasis.js'
-
 export default function Container(props) {
   return (
     <div>
-
+      {props.children}
       <style jsx>{`
         div {
           display: flex;
