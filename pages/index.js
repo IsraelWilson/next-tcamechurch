@@ -1,8 +1,8 @@
 import Meta from '../components/Meta.js'
-import Home from 'Home.js'
-import Vote from 'Vote.js'
-import Confirm from 'Confirm.js'
-import Admin from 'Admin.js'
+import Home from '../pages/Home.js'
+import Vote from '../pages/Vote.js'
+import Confirm from '../pages/Confirm.js'
+import Admin from '../pages/Admin.js'
 
 export default class Index extends React.component {
   constructor(props) {
