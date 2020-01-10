@@ -1,3 +1,4 @@
+import React from 'react'
 import Container from '../components/Container.js'
 
 export default class Home extends React.component {

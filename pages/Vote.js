@@ -1,3 +1,4 @@
+import React from 'react'
 import Container from '../components/Container.js'
 
 export default class Vote extends React.component {
