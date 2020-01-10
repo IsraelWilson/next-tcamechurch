@@ -11,7 +11,7 @@ export default class Vote extends React.component {
   render() {
     return (
       <Container>
-        <input>
+        <input />
         <button></button>
         <style jsx>{`
 

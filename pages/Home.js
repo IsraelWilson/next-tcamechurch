@@ -21,7 +21,7 @@ export default class Home extends React.component {
   render() {
     return (
       <Container>
-          <input>
+          <input />
           <button>Hello</button>
         <style jsx>{`
 

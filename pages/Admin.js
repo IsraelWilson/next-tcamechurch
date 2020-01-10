@@ -24,7 +24,7 @@ export default class Admin extends React.component {
   render() {
     return (
       <Container>
-        <input>
+        <input />
         <button></button>
         <style jsx>{`
 
