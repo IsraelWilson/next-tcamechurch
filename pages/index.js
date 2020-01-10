@@ -1,3 +1,4 @@
+import React from 'react'
 import Meta from '../components/Meta.js'
 import Home from '../components/Home.js'
 import Vote from '../components/Vote.js'
