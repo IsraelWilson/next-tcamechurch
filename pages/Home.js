@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '../components/Container.js'
 
-export default class Home extends React.component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -5,7 +5,7 @@ import Home from './Home.js'
 import Vote from './Vote.js'
 import Confirm from './Confirm.js'
 
-export default class Index extends React.component {
+export default class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
