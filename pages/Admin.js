@@ -1,4 +1,3 @@
-import React from 'react'
 import Container from '../components/Container.js'
 
 export default class Admin extends React.component {
