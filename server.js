@@ -12,7 +12,7 @@ app.prepare().then(() => {
   const server = express()
 
   server.use(bodyParser.urlencoded({ extended: true }))
-  server.use(bodyParser.json()
+  server.use(bodyParser.json())
 
   // Handle Routes Here
   server.get('*', (req, res) => {
