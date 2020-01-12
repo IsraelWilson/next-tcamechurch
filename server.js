@@ -34,9 +34,9 @@ app.prepare().then(() => {
   //   })
   // })
 
-  server.get('/test', function(req, res) {
+  server.get('/test/:id', function(req, res) {
     const reply = {
-      from: req.params,
+      from: req.params.id,
     }
     res.send(reply)
   })
