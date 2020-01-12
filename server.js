@@ -21,6 +21,7 @@ app.prepare().then(() => {
 
   // Do they have access
   server.get('/access/:id', (req, res) => {
+    console.log("Beginninng of get")
     const queryString = "SELECT * from vote WHERE name = ?";
     const id = req.param.id;
     const con = mysql.createConnection({
@@ -32,10 +33,11 @@ app.prepare().then(() => {
 
     con.query(queryString, [id], (err, rows, fields) => {
       if (err) {
+        console.log("Server err")
         console.log(err);
         res.sendStatus(500);
       }
-      console.log(rows)
+      console.log("Successful response")
       res.json(rows)
     })
   })

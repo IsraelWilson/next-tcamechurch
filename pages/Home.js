@@ -24,7 +24,7 @@ export default class Home extends React.Component {
     fetch('/access/' + userID)
     .then((res) => res.text())
     .then((res) => {
-      console.log('Contact form response: ', res);
+      //console.log('Contact form response: ', res);
     })
     .catch((err) => {
       console.log('Contact form error: ', err);
