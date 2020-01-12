@@ -9,10 +9,9 @@ export default class Home extends React.Component {
       candidates: [],
       userID: ""
     };
-  }
 
-  hasAccess() {
-
+    this.login = this.login.bind(this);
+    this.change = this.change.bind(this);
   }
 
   login() {
@@ -52,8 +51,8 @@ export default class Home extends React.Component {
   render() {
     return (
       <Container>
-        <form onClick={login.bind(this)}>
-          <input type="text" name="userID" value={this.state.userID} onChange={change.bind(this)}/>
+        <form onClick={this.login}>
+          <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
           <button type="button">Sign In</button>
         </form>
         <style jsx>{`
