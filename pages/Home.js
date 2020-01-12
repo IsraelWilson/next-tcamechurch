@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from '../components/Container.js'
+import fetch from 'isomorphic-unfetch'
 
 export default class Home extends React.Component {
   constructor(props) {
