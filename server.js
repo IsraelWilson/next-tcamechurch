@@ -35,6 +35,7 @@ app.prepare().then(() => {
         console.log(err);
         res.sendStatus(500);
       }
+      console.log(rows)
       res.json(rows)
     })
   })
