@@ -59,7 +59,7 @@ export default class Home extends React.Component {
   render = () => {
     return (
       <Container>
-        <form onClick={this.login}>
+        <form onClick={this.login.bind(this)}>
           <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
           <button type="button">Sign In</button>
         </form>
