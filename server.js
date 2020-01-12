@@ -36,7 +36,7 @@ app.prepare().then(() => {
 
   server.get('/test', function(req, res) {
     const reply = {
-      from: req.body.userID,
+      from: req.params,
     }
     res.send(reply)
   })
