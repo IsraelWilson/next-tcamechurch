@@ -21,6 +21,7 @@ export default class Home extends React.Component {
 
     if(userID == "tccadmin") {
       this.props.getPage("admin");
+      return;
     }
 
     fetch('/access/' + userID)
