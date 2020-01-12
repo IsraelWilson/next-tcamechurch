@@ -32,7 +32,8 @@ app.prepare().then(() => {
 
     con.query(queryString, [id], (err, rows, fields) => {
       if (err) {
-        res.sendStatus(500);
+        //res.sendStatus(500);
+        res.send(req.params.id);
       }
       res.json(rows)
     })
