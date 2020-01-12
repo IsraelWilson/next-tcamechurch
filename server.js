@@ -16,7 +16,7 @@ app.prepare().then(() => {
 
     // Do they have access
   server.get('/access/:id', function(req, res) {
-    const queryString = "SELECT * from vote WHERE name = ?";
+    const queryString = "SELECT * from user WHERE user_id = ?";
     const id = req.params.id;
     const con = mysql.createConnection({
       host: config.env.dbHost,
