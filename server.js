@@ -14,29 +14,31 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }))
   server.use(bodyParser.json())
 
-  // Handle Routes Here
-  server.get('*', (req, res) => {
-    return handle(req, res)
-  })
+    // Do they have access
+  // server.get('/access/:id', (req, res) => {
+  //   const queryString = "SELECT * from vote WHERE name = ?";
+  //   const id = req.params.id;
+  //   const con = mysql.createConnection({
+  //     host: config.env.dbHost,
+  //     user: config.env.dbUser,
+  //     password: config.env.dbPass,
+  //     database: config.env.dbName
+  //   })
+  //
+  //   con.query(queryString, [id], (err, rows, fields) => {
+  //     if (err) {
+  //       //res.sendStatus(500);
+  //       res.send(req.params.id);
+  //     }
+  //     res.json(rows)
+  //   })
+  // })
 
-  // Do they have access
-  server.get('/access/:id', (req, res) => {
-    const queryString = "SELECT * from vote WHERE name = ?";
-    const id = req.params.id;
-    const con = mysql.createConnection({
-      host: config.env.dbHost,
-      user: config.env.dbUser,
-      password: config.env.dbPass,
-      database: config.env.dbName
-    })
-
-    con.query(queryString, [id], (err, rows, fields) => {
-      if (err) {
-        //res.sendStatus(500);
-        res.send(req.params.id);
-      }
-      res.json(rows)
-    })
+  server.post('/test', function(req, res) {
+    const reply = {
+      from: req.body.userID,
+    }
+    res.send(reply)
   })
 
   // Toggle voting access
@@ -104,6 +106,11 @@ app.prepare().then(() => {
 
   // Remove all candidates
   server.delete('/nuke', (req, res) => {
+    return handle(req, res)
+  })
+
+  // Handle Routes Here
+  server.get('*', (req, res) => {
     return handle(req, res)
   })
 
