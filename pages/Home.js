@@ -20,16 +20,7 @@ export default class Home extends React.Component {
     }
     const userID = this.state.userID;
 
-    fetch('/access/' + userID, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: userID
-      })
-    })
+    fetch('/access/' + userID)
     .then((res) => res.text())
     .then((res) => {
       console.log('Contact form response: ', res);
@@ -39,6 +30,32 @@ export default class Home extends React.Component {
     })
 
   }
+
+  // login() {
+  //   if(this.state.userID == ""){
+  //     return;
+  //   }
+  //   const userID = this.state.userID;
+  //
+  //   fetch('/access/' + userID, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       userID: userID
+  //     })
+  //   })
+  //   .then((res) => res.text())
+  //   .then((res) => {
+  //     console.log('Contact form response: ', res);
+  //   })
+  //   .catch((err) => {
+  //     console.log('Contact form error: ', err);
+  //   })
+  //
+  // }
 
   change(event) {
     const target = event.target;
