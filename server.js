@@ -29,15 +29,9 @@ app.prepare().then(() => {
       if (err) {
         res.send("There was an internal server error: " + err);
       }
-      res.json(rows)
-    })
-  })
 
-  server.get('/test/:id', function(req, res) {
-    const reply = {
-      from: req.params.id,
-    }
-    res.send(reply)
+      res.json(rows);
+    })
   })
 
   // Toggle voting access

@@ -12,7 +12,7 @@ export default class Vote extends React.Component {
     return (
       <Container>
         <input />
-        <button></button>
+        <button>Vote</button>
         <style jsx>{`
 
         `}</style>

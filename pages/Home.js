@@ -16,18 +16,32 @@ export default class Home extends React.Component {
   }
 
   login() {
-    if(this.state.userID == ""){
+    const userID = this.state.userID;
+
+    if(userID == ""){
       return;
     }
-    const userID = this.state.userID;
+
+    if(userID == "tccadmin") {
+      this.props.getPage("admin");
+    }
 
     fetch('/access/' + userID)
     .then((res) => res.json())
     .then((res) => {
-      console.log('Contact form response: ', res);
+      if(res.length > 0) {
+        if(res[0].voted == 0) {
+          this.props.getPage("vote");
+        } else {
+          // User already voted
+        }
+      } else {
+        // Handle failed login attempt
+
+      }
     })
     .catch((err) => {
-      console.log('Contact form error: ', err);
+      console.log('Login error: ', err);
     })
 
   }

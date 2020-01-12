@@ -25,7 +25,7 @@ export default class Admin extends React.Component {
     return (
       <Container>
         <input />
-        <button></button>
+        <button>Admin</button>
         <style jsx>{`
 
         `}</style>
