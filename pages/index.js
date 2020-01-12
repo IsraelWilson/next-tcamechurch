@@ -9,7 +9,7 @@ export default class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: <Home getPage={this.getPage.bind(this)}/>
+      page: <Home getPage={this.getPage}/>
     };
 
     this.getPage = this.getPage.bind(this);
