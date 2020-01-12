@@ -14,7 +14,7 @@ export default class Admin extends React.Component {
     fetch('/tally')
     .then((res) => res.json())
     .then((res) => {
-      update = [];
+      let update = [];
       res.map((candidate) => update.push(<button>{candidate.trustee_name} {candidate.vote_num} </button>));
       this.setState({candidates: update});
     })
