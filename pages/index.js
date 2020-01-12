@@ -30,8 +30,6 @@ export default class Index extends React.Component {
     if(page == "admin") {
       this.setState({page: <Admin getPage={this.getPage.bind(this)}/>});
     }
-
-    this.setState({page: <Home getPage={this.getPage.bind(this)}/>});
   }
 
   render = () => {
