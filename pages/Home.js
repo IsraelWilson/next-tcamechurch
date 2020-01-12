@@ -20,8 +20,8 @@ export default class Home extends React.Component {
     }
 
     if(userID == "tccadmin") {
+      console.log("matched admin");
       this.props.getPage("admin");
-      return;
     }
 
     fetch('/access/' + userID)
