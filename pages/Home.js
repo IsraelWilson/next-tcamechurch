@@ -15,7 +15,7 @@ export default class Home extends React.Component {
     this.change = this.change.bind(this);
   }
 
-  login () => {
+  login() {
     const userID = this.state.userID;
 
     if(userID == ""){

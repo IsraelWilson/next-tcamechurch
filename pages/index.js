@@ -11,11 +11,9 @@ export default class Index extends React.Component {
     this.state = {
       page: <Home getPage={this.getPage}/>
     };
-
-    this.getPage = this.getPage.bind(this);
   }
 
-  getPage(page, names = []) {
+  getPage = (page, names = []) => {
     if(page == "home") {
       this.setState({page: <Home getPage={this.getPage}/>});
     }
