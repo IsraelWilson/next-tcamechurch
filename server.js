@@ -15,24 +15,23 @@ app.prepare().then(() => {
   server.use(bodyParser.json())
 
     // Do they have access
-  // server.get('/access/:id', (req, res) => {
-  //   const queryString = "SELECT * from vote WHERE name = ?";
-  //   const id = req.params.id;
-  //   const con = mysql.createConnection({
-  //     host: config.env.dbHost,
-  //     user: config.env.dbUser,
-  //     password: config.env.dbPass,
-  //     database: config.env.dbName
-  //   })
-  //
-  //   con.query(queryString, [id], (err, rows, fields) => {
-  //     if (err) {
-  //       //res.sendStatus(500);
-  //       res.send(req.params.id);
-  //     }
-  //     res.json(rows)
-  //   })
-  // })
+  server.get('/access/:id', function(req, res) {
+    const queryString = "SELECT * from vote WHERE name = ?";
+    const id = req.params.id;
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, [id], (err, rows, fields) => {
+      if (err) {
+        res.send("Failure");
+      }
+      res.json("Success")
+    })
+  })
 
   server.get('/test/:id', function(req, res) {
     const reply = {

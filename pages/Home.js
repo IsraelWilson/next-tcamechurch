@@ -15,30 +15,13 @@ export default class Home extends React.Component {
     this.change = this.change.bind(this);
   }
 
-  // login() {
-  //   if(this.state.userID == ""){
-  //     return;
-  //   }
-  //   const userID = this.state.userID;
-  //
-  //   fetch('/access/' + userID)
-  //   .then((res) => res.text())
-  //   .then((res) => {
-  //     console.log('Contact form response: ', res);
-  //   })
-  //   .catch((err) => {
-  //     console.log('Contact form error: ', err);
-  //   })
-  //
-  // }
-
   login() {
     if(this.state.userID == ""){
       return;
     }
     const userID = this.state.userID;
 
-    fetch('/test/' + userID)
+    fetch('/access/' + userID)
     .then((res) => res.json())
     .then((res) => {
       console.log('Contact form response: ', res);
