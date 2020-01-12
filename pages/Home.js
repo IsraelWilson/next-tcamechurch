@@ -38,16 +38,7 @@ export default class Home extends React.Component {
     }
     const userID = this.state.userID;
 
-    fetch('/test', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: userID
-      })
-    })
+    fetch('/test')
     .then((res) => res.json())
     .then((res) => {
       console.log('Contact form response: ', res);

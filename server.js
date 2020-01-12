@@ -34,7 +34,7 @@ app.prepare().then(() => {
   //   })
   // })
 
-  server.post('/test', function(req, res) {
+  server.get('/test', function(req, res) {
     const reply = {
       from: req.body.userID,
     }
