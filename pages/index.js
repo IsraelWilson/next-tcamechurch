@@ -11,27 +11,29 @@ export default class Index extends React.Component {
     this.state = {
       page: <Home getPage={this.getPage.bind(this)}/>
     };
+
+    this.getPage = this.getPage.bind(this);
   }
 
   getPage(page, names = []) {
     if(page == "home") {
-      this.setState({page: <Home getPage={this.getPage.bind(this)}/>});
+      this.setState({page: <Home getPage={this.getPage}/>});
     }
 
     if(page == "vote") {
       console.log("Going to vote page");
-      this.setState({page: <Vote getPage={this.getPage.bind(this)} selection={names}/>});
+      this.setState({page: <Vote getPage={this.getPage} selection={names}/>});
     }
 
     if(page == "confirm") {
-      this.setState({page: <Confirm getPage={this.getPage.bind(this)} selection={names}/>});
+      this.setState({page: <Confirm getPage={this.getPage} selection={names}/>});
     }
 
     if(page == "admin") {
-      this.setState({page: <Admin getPage={this.getPage.bind(this)}/>});
+      this.setState({page: <Admin getPage={this.getPage}/>});
     }
 
-    this.setState({page: <Home getPage={this.getPage.bind(this)}/>});
+    this.setState({page: <Home getPage={this.getPage}/>});
   }
 
   render() {
