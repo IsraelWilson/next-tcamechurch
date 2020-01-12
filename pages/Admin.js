@@ -13,19 +13,24 @@ export default class Admin extends React.Component {
   tally = () => {
     fetch('/tally')
     .then((res) => res.json())
-    .then((res) => { console.log(res) })
+    .then((res) => {
+      update = [];
+      res.map((candidate) => update.push(<button>{candidate.trustee_name} {candidate.vote_num} </button>));
+      this.setState({candidates: update});
+    })
     .catch((err) => { console.log(err) })
   }
 
   componentDidMount = () => {
     this.tally()
+    console.log(this.state.candidates)
   }
 
   render = () => {
     return (
       <Container>
         <input />
-        <button>Admin</button>
+        {this.state.candidates}
         <style jsx>{`
 
         `}</style>

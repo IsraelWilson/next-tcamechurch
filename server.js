@@ -36,7 +36,22 @@ app.prepare().then(() => {
 
   // Toggle voting access
   server.put('/toggleAccess', (req, res) => {
-    return handle(req, res)
+    const queryString = "UPDATE user SET voted = 1 WHERE user_id = ?";
+    const id = req.body.id;
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, [id], (err, rows, fields) => {
+      if (err) {
+        res.send("There was an internal server error: " + err);
+      }
+
+      res.json(rows);
+    })
   })
 
   // Is voting open
@@ -52,7 +67,7 @@ app.prepare().then(() => {
     con.query(queryString, (err, rows, fields) => {
       if (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.send("There was an internal server error: " + err);
       }
       res.json(rows)
     })
@@ -60,7 +75,21 @@ app.prepare().then(() => {
 
   // Toggle open state
   server.put('/toggleOpen', (req, res) => {
-    return handle(req, res)
+    const queryString = "UPDATE open SET open = 0 WHERE open = 1";
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      res.json(rows)
+    })
   })
 
   // Get all votes
