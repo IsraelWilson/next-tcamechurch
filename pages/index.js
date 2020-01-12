@@ -34,7 +34,7 @@ export default class Index extends React.Component {
     this.setState({page: <Home getPage={this.getPage}/>});
   }
 
-  render() {
+  render = () => {
     return (
       <div>
         <Meta/>

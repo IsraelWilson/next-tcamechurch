@@ -10,18 +10,18 @@ export default class Admin extends React.Component {
     };
   }
 
-  getTally() {
+  getTally = () => {
     fetch('/tally')
     .then((res) => res.json())
     .then((res) => { console.log(res) })
     .catch((err) => { console.log(err) })
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     getTally()
   }
 
-  render() {
+  render = () => {
     return (
       <Container>
         <input />

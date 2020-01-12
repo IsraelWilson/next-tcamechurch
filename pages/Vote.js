@@ -8,7 +8,7 @@ export default class Vote extends React.Component {
     };
   }
 
-  render() {
+  render = () => {
     return (
       <Container>
         <input />

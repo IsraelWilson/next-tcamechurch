@@ -10,12 +10,9 @@ export default class Home extends React.Component {
       candidates: [],
       userID: ""
     };
-
-    this.login = this.login.bind(this);
-    this.change = this.change.bind(this);
   }
 
-  login() {
+  login = () => {
     const userID = this.state.userID;
 
     if(userID == ""){
@@ -50,7 +47,7 @@ export default class Home extends React.Component {
 
   }
 
-  change(event) {
+  change = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -58,7 +55,7 @@ export default class Home extends React.Component {
     this.setState({[name]: value});
   }
 
-  render() {
+  render = () => {
     return (
       <Container>
         <form onClick={this.login}>
