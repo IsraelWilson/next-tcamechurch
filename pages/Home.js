@@ -30,13 +30,17 @@ export default class Home extends React.Component {
     .then((res) => res.json())
     .then((res) => {
       if(res.length > 0) {
+        console.log("res len > 0");
         if(res[0].voted == 0) {
+          console.log("voted == 0");
           this.props.getPage("vote");
         } else {
           // User already voted
+          console.log("user voted");
         }
       } else {
         // Handle failed login attempt
+        console.log("failed to login");
 
       }
     })
