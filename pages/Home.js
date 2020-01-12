@@ -38,7 +38,7 @@ export default class Home extends React.Component {
     }
     const userID = this.state.userID;
 
-    fetch('/test/israel')
+    fetch('/test/' + userID)
     .then((res) => res.json())
     .then((res) => {
       console.log('Contact form response: ', res);
