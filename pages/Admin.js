@@ -10,7 +10,7 @@ export default class Admin extends React.Component {
     };
   }
 
-  getTally = () => {
+  tally = () => {
     fetch('/tally')
     .then((res) => res.json())
     .then((res) => { console.log(res) })
@@ -18,7 +18,7 @@ export default class Admin extends React.Component {
   }
 
   componentDidMount = () => {
-    getTally()
+    this.tally()
   }
 
   render = () => {

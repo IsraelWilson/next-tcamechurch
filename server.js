@@ -76,7 +76,7 @@ app.prepare().then(() => {
     con.query(queryString, (err, rows, fields) => {
       if (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.send("There was an internal server error: " + err);
       }
       res.json(rows)
     })
