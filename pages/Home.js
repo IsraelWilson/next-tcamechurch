@@ -20,7 +20,6 @@ export default class Home extends React.Component {
     }
 
     if(userID == "tccadmin") {
-      console.log("matched admin");
       this.props.getPage("admin");
     }
 
@@ -30,7 +29,6 @@ export default class Home extends React.Component {
       if(res.length > 0) {
         console.log("res len > 0");
         if(res[0].voted == 0) {
-          console.log("voted == 0");
           this.props.getPage("vote");
         } else {
           // User already voted

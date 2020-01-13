@@ -19,7 +19,6 @@ export default class Index extends React.Component {
     }
 
     if(page == "vote") {
-      console.log("Going to vote page");
       this.setState({page: <Vote getPage={this.getPage.bind(this)} selection={names}/>});
     }
 
