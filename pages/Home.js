@@ -1,5 +1,7 @@
 import React from 'react'
 import Container from '../components/Container.js'
+import Row from '../components/Row'
+import Column from '../components/Column'
 import fetch from 'isomorphic-unfetch'
 
 export default class Home extends React.Component {
@@ -57,10 +59,19 @@ export default class Home extends React.Component {
   render = () => {
     return (
       <Container>
-        <form onClick={this.login.bind(this)}>
-          <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
-          <button type="button">Sign In</button>
-        </form>
+        <Row justify="center">
+          <Column align="center">
+            <form onClick={this.login.bind(this)}>
+              <h1>Please Enter ID to Vote</h1>
+              <Row>
+                <label>User ID</label>
+                <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
+                <button type="button">Sign In</button>
+              </Row>
+              <p>To login as Admin enter password</p>
+            </form>
+          </Column>
+        </Row>
         <style jsx>{`
 
         `}</style>

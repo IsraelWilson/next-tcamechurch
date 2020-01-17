@@ -1,5 +1,7 @@
 import React from 'react'
 import Container from '../components/Container.js'
+import Row from '../components/Row'
+import Column from '../components/Column'
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -10,27 +12,64 @@ export default class Admin extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    this.tally()
+  }
+
   tally = () => {
     fetch('/tally')
     .then((res) => res.json())
     .then((res) => {
-      let update = [];
-      res.map((candidate) => update.push(<button>{candidate.trustee_name} {candidate.vote_num} </button>));
-      this.setState({candidates: update});
+      this.setState({candidates: res});
     })
     .catch((err) => { console.log(err) })
   }
 
-  componentDidMount = () => {
-    this.tally()
-    console.log(this.state.candidates)
+  getTallyButtons = (candidates) => {
+    let buttons = [];
+    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    return buttons;
+  }
+
+  getColumn = (buttonArr) => {
+    return <Column>{buttonArr}</Column>;
+  }
+
+  getColumns = (candidates) => {
+    let buttons = getTallyButtons(candidates);
+    let column = [];
+    let columns = [];
+
+    for(let i = 0; i < buttons.length; i++) {
+      column.push(buttons[i]);
+      if(i % 9 == 0 || i == buttons.length - 1) {
+        columns.push(getColumn(column));
+        column = [];
+      }
+    }
+
+    return columns;
+  }
+
+  getTallyRow = (candidates) => {
+    return <Row>{getColumns(candidates)}</Row>;
+  }
+
+  getManageButtons = () => {
+    let buttons = [];
+    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    return buttons;
+  }
+
+  getManageRow = (candidates) => {
+    return <Row>{getColumns(candidates)}</Row>
   }
 
   render = () => {
     return (
       <Container>
-        <input />
-        {this.state.candidates}
+        <h1>Results</h1>
+        {getTallyRow(this.state.candidates)}
         <style jsx>{`
 
         `}</style>
