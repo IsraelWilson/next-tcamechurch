@@ -78,6 +78,8 @@ export default class Admin extends React.Component {
       <Container>
         <h1>Results</h1>
         {this.getTallyRow(this.state.candidates)}
+        <h1>Manage</h1>
+        {this.getManageRow(this.state.candidates)}
         <style jsx>{`
 
         `}</style>
