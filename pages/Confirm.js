@@ -11,6 +11,12 @@ export default class Confirm extends React.Component {
     };
   }
 
+  getButtons = (candidates) => {
+    let buttons = [];
+    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    return buttons;
+  }
+
   getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
@@ -33,12 +39,6 @@ export default class Confirm extends React.Component {
 
   getRow = (candidates) => {
     return <Row>{this.getColumns(candidates)}</Row>;
-  }
-
-  getButtons = (candidates) => {
-    let buttons = [];
-    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
-    return buttons;
   }
 
   render() {
