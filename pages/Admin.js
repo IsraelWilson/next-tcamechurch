@@ -35,8 +35,16 @@ export default class Admin extends React.Component {
     return <Column>{buttonArr}</Column>;
   }
 
-  getColumns = (candidates) => {
-    let buttons = getTallyButtons(candidates);
+  getColumns = (candidates, type) => {
+    let buttons = [];
+    if(type == "tally") {
+      buttons = getTallyButtons(candidates);
+    }
+
+    if(type == "manage") {
+      buttons = getManageButtons(candidates);
+    }
+
     let column = [];
     let columns = [];
 
@@ -52,17 +60,17 @@ export default class Admin extends React.Component {
   }
 
   getTallyRow = (candidates) => {
-    return <Row>{getColumns(candidates)}</Row>;
+    return <Row>{getColumns(candidates, "tally")}</Row>;
   }
 
-  getManageButtons = () => {
+  getManageButtons = (candidates) => {
     let buttons = [];
     candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
     return buttons;
   }
 
   getManageRow = (candidates) => {
-    return <Row>{getColumns(candidates)}</Row>
+    return <Row>{getColumns(candidates, "manage")}</Row>
   }
 
   render = () => {
