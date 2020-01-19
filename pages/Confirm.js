@@ -1,5 +1,7 @@
 import React from 'react'
 import Container from '../components/Container.js'
+import Row from '../components/Row'
+import Column from '../components/Column'
 
 export default class Confirm extends React.Component {
   constructor(props) {
