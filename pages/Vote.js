@@ -51,7 +51,7 @@ export default class Vote extends React.Component {
 
   getButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}</button><input name={candidate.trustee_name}} type="checkbox"/>));
     return buttons;
   }
 
