@@ -67,6 +67,10 @@ export default class Vote extends React.Component {
 
   }
 
+  handleChange = (event) => {
+
+  }
+
   render = () => {
     return (
       <Container>
