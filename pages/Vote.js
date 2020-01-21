@@ -27,7 +27,7 @@ export default class Vote extends React.Component {
 
   getButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox" /></div>));
+    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox" onChange={this.handleChange}/></div>));
     return buttons;
   }
 
@@ -68,12 +68,13 @@ export default class Vote extends React.Component {
   }
 
   handleChange = (event) => {
+    let update = this.state.candidates;
+    console.log(update);
     if(event.target.checked) {
       this.setState({candidates: this.state.candidates.push(event.target.name),
                      selection: this.state.selection + 1});
     }
     else if(!event.target.checked) {
-      let update = this.state.candidates;
       console.log(update);
       for(let i = 0; i < update.length; i++) {
         if(update[i] == event.target.name) {
