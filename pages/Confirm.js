@@ -13,7 +13,7 @@ export default class Confirm extends React.Component {
 
   getButtons = (candidates) => {
     let buttons = [];
-    if(candidates) candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}</button>));
+    if(candidates) candidates.map((candidate) => buttons.push(<button type="button">{candidate}</button>));
     return buttons;
   }
 
