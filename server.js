@@ -18,6 +18,7 @@ app.prepare().then(() => {
   server.get('/access/:id', function(req, res) {
     const queryString = "SELECT * from user WHERE user_id = ?";
     const id = req.params.id;
+
     const con = mysql.createConnection({
       host: config.env.dbHost,
       user: config.env.dbUser,
@@ -38,6 +39,7 @@ app.prepare().then(() => {
   server.put('/toggleAccess', (req, res) => {
     const queryString = "UPDATE user SET voted = 1 WHERE user_id = ?";
     const id = req.body.id;
+
     const con = mysql.createConnection({
       host: config.env.dbHost,
       user: config.env.dbUser,
@@ -49,7 +51,7 @@ app.prepare().then(() => {
       if (err) {
         res.send("There was an internal server error: " + err);
       }
-
+      
       res.json(rows);
     })
   })
@@ -57,6 +59,7 @@ app.prepare().then(() => {
   // Is voting open
   server.get('/open', (req, res) => {
     const queryString = "SELECT * from open";
+
     const con = mysql.createConnection({
       host: config.env.dbHost,
       user: config.env.dbUser,
@@ -76,6 +79,7 @@ app.prepare().then(() => {
   // Toggle open state
   server.put('/toggleOpen', (req, res) => {
     const queryString = "UPDATE open SET open = 0 WHERE open = 1";
+
     const con = mysql.createConnection({
       host: config.env.dbHost,
       user: config.env.dbUser,
@@ -95,6 +99,7 @@ app.prepare().then(() => {
   // Get all votes
   server.get('/tally', (req, res) => {
     const queryString = "SELECT * from vote ORDER BY vote_num DESC";
+
     const con = mysql.createConnection({
       host: config.env.dbHost,
       user: config.env.dbUser,
@@ -113,7 +118,25 @@ app.prepare().then(() => {
 
   // Update votes
   server.put('/update', (req, res) => {
-    return handle(req, res)
+    const queryString = "UPDATE vote SET vote_num = vote_num + 1 WHERE trustee_name = ?";
+    const selection = req.body.selection;
+
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    for(let i = 0; i < selection.length; i++) {
+      con.query(queryString, [selection[i]], (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          res.send("There was an internal server error: " + err);
+        }
+        res.json(rows)
+      })
+    }
   })
 
   // Delete candidate

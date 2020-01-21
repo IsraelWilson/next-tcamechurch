@@ -43,11 +43,41 @@ export default class Confirm extends React.Component {
 
   handleClick = (event) => {
     if(event.target.name == "yes") {
-      this.props.getPage("home");
+      this.update() && this.toggleAccess() ? this.props.getPage("home") : console.log("There was an error submitting votes or toggling access");
     }
     else {
       this.props.getPage("vote");
     }
+  }
+
+  update = () => {
+
+    fetch('/update', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ selection: this.props.selection })
+    })
+    .then((res) => res.json())
+    .then((res) => { return true; })
+    .catch((err) => { console.log(err); return false; });
+  }
+
+  toggleAccess = () => {
+
+    fetch('/toggleAccess', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: this.props.selection })
+    })
+    .then((res) => res.json())
+    .then((res) => { return true; })
+    .catch((err) => { console.log(err); return false; });
   }
 
   render() {
