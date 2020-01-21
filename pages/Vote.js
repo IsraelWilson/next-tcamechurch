@@ -72,7 +72,8 @@ export default class Vote extends React.Component {
     let update = this.state.selection;
     console.log(update);
     if(event.target.checked) {
-      this.setState({selection: this.state.selection.push(event.target.name),
+      update.push(event.target.name);
+      this.setState({selection: update,
                      numSelected: this.state.numSelected + 1});
       console.log("Box was checked");
     }
@@ -80,7 +81,8 @@ export default class Vote extends React.Component {
       console.log("Box was unchecked");
       for(let i = 0; i < update.length; i++) {
         if(update[i] == event.target.name) {
-          this.setState({selection: update.splice(i, 1),
+          update.splice(i, 1);
+          this.setState({selection: update,
                          numSelected: this.state.numSelected - 1});
           // Might not need the following since there should never
           // be a duplicate name in the array but its probably best
