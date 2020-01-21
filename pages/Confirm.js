@@ -41,10 +41,24 @@ export default class Confirm extends React.Component {
     return <Row>{this.getColumns(candidates)}</Row>;
   }
 
+  handleClick = (button) => {
+    if(button == "yes") {
+      this.props.getPage("home");
+    }
+    else {
+      this.props.getPage("vote");
+    }
+  }
+
   render() {
     return (
       <Container>
         {this.getRow(this.props.selection)}
+        <Column>
+          <h1>Are you satisfied with your selection?</h1>
+          <button type="button" onClick={this.handleClick("yes")}>Yes</button>
+          <button type="button" onClick={this.handleClick("no")}>No</button>
+        </Column>
         <style jsx>{`
 
         `}</style>
