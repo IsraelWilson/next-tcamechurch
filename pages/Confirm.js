@@ -41,8 +41,8 @@ export default class Confirm extends React.Component {
     return <Row>{this.getColumns(candidates)}</Row>;
   }
 
-  handleClick = (button) => {
-    if(button == "yes") {
+  handleClick = (event) => {
+    if(event.target.name == "yes") {
       this.props.getPage("home");
     }
     else {
@@ -56,8 +56,8 @@ export default class Confirm extends React.Component {
         {this.getRow(this.props.selection)}
         <Column>
           <h1>Are you satisfied with your selection?</h1>
-          <button type="button" onClick={this.handleClick("yes")}>Yes</button>
-          <button type="button" onClick={this.handleClick("no")}>No</button>
+          <button name="yes" type="button" onClick={this.handleClick.bind(this)}>Yes</button>
+          <button name="no" type="button" onClick={this.handleClick.bind(this)}>No</button>
         </Column>
         <style jsx>{`
 
