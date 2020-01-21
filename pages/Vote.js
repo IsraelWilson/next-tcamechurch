@@ -25,6 +25,12 @@ export default class Vote extends React.Component {
     .catch((err) => { console.log(err) })
   }
 
+  getButtons = (candidates) => {
+    let buttons = [];
+    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox" /></div>));
+    return buttons;
+  }
+
   getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
@@ -47,12 +53,6 @@ export default class Vote extends React.Component {
 
   getRow = (candidates) => {
     return <Row>{this.getColumns(candidates)}</Row>;
-  }
-
-  getButtons = (candidates) => {
-    let buttons = [];
-    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox" onChange={this.handleChange}/></div>));
-    return buttons;
   }
 
   submit = () => {
