@@ -8,7 +8,8 @@ export default class Vote extends React.Component {
     super(props);
     this.state = {
       candidates: [],
-      selection: 0
+      selection: [],
+      numSelected: 0
     };
   }
 
@@ -56,7 +57,7 @@ export default class Vote extends React.Component {
   }
 
   submit = () => {
-    if(this.state.selection != 10){
+    if(this.state.numSelected != 10){
       return;
     }
 
@@ -68,24 +69,25 @@ export default class Vote extends React.Component {
   }
 
   handleChange = (event) => {
-    let update = this.state.candidates;
+    let update = this.state.selection;
     console.log(update);
     if(event.target.checked) {
-      // this.setState({candidates: this.state.candidates.push(event.target.name),
-      //                selection: this.state.selection + 1});
+      this.setState({selection: this.state.selection.push(event.target.name),
+                     numSelected: this.state.numSelected + 1});
       console.log("Box was checked");
     }
     else if(!event.target.checked) {
       console.log("Box was unchecked");
-      // for(let i = 0; i < update.length; i++) {
-      //   if(update[i] == event.target.name) {
-      //     this.setState({candidates: update.splice(i, 1)});
-      //     // Might not need the following since there should never
-      //     // be a duplicate name in the array but its probably best
-      //     // to have it to ensure we dont walk out of the array
-      //     i--;
-      //   }
-      // }
+      for(let i = 0; i < update.length; i++) {
+        if(update[i] == event.target.name) {
+          this.setState({selection: update.splice(i, 1),
+                         numSelected: this.state.numSelected - 1});
+          // Might not need the following since there should never
+          // be a duplicate name in the array but its probably best
+          // to have it to ensure we dont walk out of the array
+          i--;
+        }
+      }
     }
   }
 
