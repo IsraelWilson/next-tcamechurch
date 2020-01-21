@@ -43,6 +43,8 @@ export default class Confirm extends React.Component {
 
   handleClick = (event) => {
     if(event.target.name == "yes") {
+      console.log(this.update());
+      console.log(this.toggleAccess());
       this.update() && this.toggleAccess() ? this.props.getPage("home") : console.log("There was an error submitting votes or toggling access");
     }
     else {
