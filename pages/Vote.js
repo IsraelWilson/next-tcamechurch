@@ -61,10 +61,7 @@ export default class Vote extends React.Component {
       return;
     }
 
-    // Get the selected candidates
-    let selected = [];
-
-    this.props.getPage("confirm", selected);
+    this.props.getPage("confirm", this.state.selection);
 
   }
 
