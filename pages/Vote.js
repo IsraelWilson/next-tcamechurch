@@ -99,7 +99,7 @@ export default class Vote extends React.Component {
         {this.getRow(this.state.candidates)}
         <form onClick={this.submit.bind(this)}>
           <Row>
-            <label>{this.state.selection}</label>
+            <label>{this.state.numSelected}</label>
             <button type="button">Submit</button>
           </Row>
         </form>
