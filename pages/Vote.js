@@ -51,7 +51,7 @@ export default class Vote extends React.Component {
 
   getButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox"/></div>));
+    candidates.map((candidate) => buttons.push(<div><label>{candidate.trustee_name}</label><input name={candidate.trustee_name} type="checkbox" onChange={this.handleChange}/></div>));
     return buttons;
   }
 
@@ -68,7 +68,23 @@ export default class Vote extends React.Component {
   }
 
   handleChange = (event) => {
-
+    if(event.target.checked) {
+      this.setState({candidates: this.state.candidates.push(event.target.name),
+                     selection: this.state.selection + 1});
+    }
+    else if(!event.target.checked) {
+      let update = this.state.candidates;
+      console.log(update);
+      for(let i = 0; i < update.length; i++) {
+        if(update[i] == event.target.name) {
+          this.setState({candidates: update.splice(i, 1)});
+          // Might not need the following since there should never
+          // be a duplicate name in the array but its probably best
+          // to have it to ensure we dont walk out of the array
+          i--;
+        }
+      }
+    }
   }
 
   render = () => {
