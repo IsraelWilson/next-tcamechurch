@@ -89,55 +89,37 @@ export default class Home extends React.Component {
 
           }
 
-          .button {
+          button {
             display: inline-block;
-            font-weight: $btn-font-weight;
+            border: none;
+            padding: 1rem 2rem;
+            margin: 0;
+            text-decoration: none;
+            background: #0069ed;
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
             text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -webkit-user-select: none;
-               -moz-user-select: none;
-                -ms-user-select: none;
-                    user-select: none;
-            border: $btn-border-width solid transparent;
-            @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius);
-            @include transition($btn-transition);
-
-            // Share hover and focus styles
-            @include hover-focus {
-              text-decoration: none;
-            }
-
-            &:focus,
-            &.focus {
-              outline: 0;
-              -webkit-box-shadow: $btn-focus-box-shadow;
-                      box-shadow: $btn-focus-box-shadow;
-            }
-
-            // Disabled comes first so active can properly restyle
-            &.disabled,
-            &:disabled {
-              opacity: $btn-disabled-opacity;
-              @include box-shadow(none);
-            }
-
-            // Opinionated: add "hand" cursor to non-disabled .btn elements
-            &:not(:disabled):not(.disabled) {
-              cursor: pointer;
-            }
-
-            &:not(:disabled):not(.disabled):active,
-            &:not(:disabled):not(.disabled).active {
-              background-image: none;
-              @include box-shadow($btn-active-box-shadow);
-
-              &:focus {
-                @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
-              }
-            }
+            transition: background 250ms ease-in-out, transform 150ms ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
           }
 
+          button:hover,
+          button:focus {
+            background: #0053ba;
+          }
+
+          button:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+          }
+
+          button:active {
+            transform: scale(0.99);
+          }
 
           p {
 
