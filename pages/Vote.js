@@ -33,7 +33,7 @@ export default class Vote extends React.Component {
   }
 
   test = () => {
-    return this.state.candidates.map(candidate => (<button>{candidate.name}</button>));
+    return this.state.candidates.map(candidate => (<button class="test">{candidate.name}</button>));
   }
 
   getColumn = (buttonArr) => {
@@ -106,7 +106,7 @@ export default class Vote extends React.Component {
           </Row>
         </form>
         <style jsx>{`
-          div {
+          .test {
             display: flex;
             flex-direction: row;
             flex-grow: 1;
