@@ -93,7 +93,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.state.candidates.map(candidate => (<button className="test">{candidate.name}</button>));}
+        {this.state.candidates.map(candidate => (<button className="test">{candidate.name}</button>))}
         {this.getRow(this.state.candidates)}
         <form onClick={this.submit.bind(this)}>
           <Row>
