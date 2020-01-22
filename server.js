@@ -52,7 +52,7 @@ app.prepare().then(() => {
         res.send("There was an internal server error: " + err);
       }
 
-      res.json(rows);
+      res.json(rows.affectedRows);
     })
   })
 

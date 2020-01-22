@@ -47,13 +47,13 @@ export default class Confirm extends React.Component {
       for(let i = 0; i < this.props.selection.length; i++) {
         let success = this.update(this.props.selection[i]);
         console.log(success);
-        if(!success) {
+        if(success == 0) {
           console.log("There was an error updating the name: " + this.props.selection[i]);
           return;
         }
       }
       let success = this.toggleAccess();
-      if(!success) {
+      if(success == 0) {
         console.log("Failed to toggle access");
         return;
       }
@@ -76,8 +76,8 @@ export default class Confirm extends React.Component {
       body: JSON.stringify({ name: selection })
     })
     .then((res) => res.json())
-    .then((res) => { console.log("affectedRows: " + res); return true; })
-    .catch((err) => { console.log(err); return false; });
+    .then((res) => { return res; })
+    .catch((err) => { console.log(err); return 0; });
   }
 
   toggleAccess = () => {
@@ -91,8 +91,8 @@ export default class Confirm extends React.Component {
       body: JSON.stringify({ id: this.props.selection })
     })
     .then((res) => res.json())
-    .then((res) => { return true; })
-    .catch((err) => { console.log(err); return false; });
+    .then((res) => { return res; })
+    .catch((err) => { console.log(err); return 0; });
   }
 
   render() {
