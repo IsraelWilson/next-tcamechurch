@@ -51,7 +51,7 @@ app.prepare().then(() => {
       if (err) {
         res.send("There was an internal server error: " + err);
       }
-      
+
       res.json(rows);
     })
   })
@@ -118,6 +118,7 @@ app.prepare().then(() => {
 
   // Update votes
   server.put('/update', (req, res) => {
+    console.log("Called update");
     const queryString = "UPDATE vote SET vote_num = vote_num + 1 WHERE trustee_name = ?";
     const selection = req.body.selection;
 
