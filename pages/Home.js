@@ -89,6 +89,7 @@ export default class Home extends React.Component {
           button {
             border: none;
             padding: 1rem 2rem;
+            margin-left: 1rem;
             margin-bottom: 1.5rem;
             text-decoration: none;
             background: #feda6a;
@@ -118,7 +119,7 @@ export default class Home extends React.Component {
           }
 
           p {
-
+            text-align: center;
           }
 
         `}</style>
