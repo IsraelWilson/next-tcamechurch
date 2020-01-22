@@ -45,20 +45,14 @@ export default class Confirm extends React.Component {
     if(event.target.name == "yes") {
 
       for(let i = 0; i < this.props.selection.length; i++) {
-        let success = this.update(this.props.selection[i]);
-        console.log(success);
-        if(success == 0) {
-          console.log("There was an error updating the name: " + this.props.selection[i]);
-          return;
-        }
-      }
-      let success = this.toggleAccess();
-      if(success == 0) {
-        console.log("Failed to toggle access");
-        return;
+        // Should use await or promises in order to get a value back
+        // from the these fetch methods. They are asynchronous so they
+        // return before they finish executing
+        this.update(this.props.selection[i]);
       }
 
-      console.log("Successfully updated names and access");
+      this.toggleAccess();
+      this.props.getPage("home");
     }
     else {
       this.props.getPage("vote");
