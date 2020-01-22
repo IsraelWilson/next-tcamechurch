@@ -62,7 +62,7 @@ export default class Home extends React.Component {
         <Row justify="center">
           <Column align="center">
             <form onClick={this.login.bind(this)}>
-              <h1>Please Enter ID to Vote</h1>
+              <h1>Please Enter Voter ID</h1>
               <Row>
                 <label>User ID</label>
                 <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
@@ -90,14 +90,11 @@ export default class Home extends React.Component {
           }
 
           input {
-            display: block;
-            width: 100%;
             padding: 1rem;
             margin-bottom: 1.5rem;
           }
 
           button {
-            display: inline-block;
             border: none;
             padding: 1rem 2rem;
             margin: 0;
