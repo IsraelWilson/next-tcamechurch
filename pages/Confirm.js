@@ -76,7 +76,7 @@ export default class Confirm extends React.Component {
       body: JSON.stringify({ name: selection })
     })
     .then((res) => res.json())
-    .then((res) => { return true; })
+    .then((res) => { console.log("affectedRows: " + res); return true; })
     .catch((err) => { console.log(err); return false; });
   }
 
