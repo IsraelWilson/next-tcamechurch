@@ -31,7 +31,7 @@ export default class Home extends React.Component {
       if(res.length > 0) {
         console.log("res len > 0");
         if(res[0].voted == 0) {
-          this.props.getPage("vote");
+          this.props.getPage("vote", [], userID);
         } else {
           // User already voted
           console.log("user voted");

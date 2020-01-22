@@ -88,7 +88,7 @@ export default class Confirm extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: this.props.selection })
+      body: JSON.stringify({ id: this.props.user })
     })
     .then((res) => res.json())
     .then((res) => { return res; })

@@ -13,17 +13,17 @@ export default class Index extends React.Component {
     };
   }
 
-  getPage = (page, names = []) => {
+  getPage = (page, names = [], id = "") => {
     if(page == "home") {
       this.setState({page: <Home getPage={this.getPage.bind(this)}/>});
     }
 
     if(page == "vote") {
-      this.setState({page: <Vote getPage={this.getPage.bind(this)} selection={names}/>});
+      this.setState({page: <Vote getPage={this.getPage.bind(this)} selection={names} user={id}/>});
     }
 
     if(page == "confirm") {
-      this.setState({page: <Confirm getPage={this.getPage.bind(this)} selection={names}/>});
+      this.setState({page: <Confirm getPage={this.getPage.bind(this)} selection={names} user={id}/>});
     }
 
     if(page == "admin") {

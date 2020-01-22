@@ -61,7 +61,7 @@ export default class Vote extends React.Component {
       return;
     }
 
-    this.props.getPage("confirm", this.state.selection);
+    this.props.getPage("confirm", this.state.selection, this.props.user);
 
   }
 
