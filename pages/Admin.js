@@ -39,7 +39,7 @@ export default class Admin extends React.Component {
 
   getTallyButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    candidates.map((candidate) => buttons.push(<button type="button">{candidate.name}: <label>{candidate.votes}</label></button>));
     return buttons;
   }
 
@@ -81,7 +81,7 @@ export default class Admin extends React.Component {
 
   getManageButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<div>{candidate.trustee_name}: <button>X</button></div>));
+    candidates.map((candidate) => buttons.push(<div>{candidate.name}: <button name={candidate.name} onClick={this.handleManageButton}>X</button></div>));
     return buttons;
   }
 
@@ -99,12 +99,51 @@ export default class Admin extends React.Component {
     return <Row>{this.getColumns(users, "user")}</Row>
   }
 
-  handleName = () => {
-
+  handleName = (event) => {
+    this.setState({name: event.target.value});
   }
 
   handleCandidateForm = (event) => {
+    if(event.target.name == "add") {
+      fetch('/add' + this.state.name, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: this.state.name })
+      })
+      .then((res) => res.json())
+      .then((res) => { this.tally(); })
+      .catch((err) => { console.log(err) })
+    }
+    else if(event.target.name == "drop") {
+      fetch('/nuke', {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: this.state.name })
+      })
+      .then((res) => res.json())
+      .then((res) => { this.tally(); })
+      .catch((err) => { console.log(err) })
+    }
+  }
 
+  handleManageButton = (event) => {
+    fetch('/delete', {
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: event.target.name })
+    })
+    .then((res) => res.json())
+    .then((res) => { this.tally(); })
+    .catch((err) => { console.log(err) })
   }
 
   render = () => {
@@ -113,8 +152,8 @@ export default class Admin extends React.Component {
         <h1>Results</h1>
         {this.getTallyRow(this.state.candidates)}
         <h1>Manage</h1>
-        <form onClick={this.handleCandidateForm.bind(this)}>
         {this.getManageRow(this.state.candidates)}
+        <form onClick={this.handleCandidateForm.bind(this)}>
           <Row>
             <input type="text" value={this.state.name} onChange={this.handleName}/>
             <button name="add" type="button">Add Candidate</button>

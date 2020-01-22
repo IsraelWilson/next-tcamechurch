@@ -118,7 +118,7 @@ server.get('/access', function(req, res) {
 
   // Get all votes
   server.get('/tally', (req, res) => {
-    const queryString = "SELECT * from vote ORDER BY vote_num DESC";
+    const queryString = "SELECT * from trustee ORDER BY votes DESC";
 
     const con = mysql.createConnection({
       host: config.env.dbHost,
@@ -138,7 +138,7 @@ server.get('/access', function(req, res) {
 
   // Update votes
   server.put('/update', (req, res) => {
-    const queryString = "UPDATE vote SET vote_num = vote_num + 1 WHERE trustee_name = ?";
+    const queryString = "UPDATE trustee SET votes = votes + 1 WHERE name = ?";
     const name = req.body.name;
 
     const con = mysql.createConnection({
@@ -159,18 +159,92 @@ server.get('/access', function(req, res) {
   })
 
   // Delete candidate
-  server.delete('/delete/:name', (req, res) => {
-    return handle(req, res)
+  server.delete('/delete', (req, res) => {
+    const queryString = "DELETE FROM trustee WHERE name = ?";
+    const name = req.body.name;
+
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, [name], (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      if(rows.length > 0) {
+        res.json(rows.affectedRows)
+      }
+    })
   })
 
   // Add candidate
-  server.post('/add/:name', (req, res) => {
-    return handle(req, res)
+  server.post('/add', (req, res) => {
+    const queryString = "SELECT * FROM trustee WHERE name = ?";
+    const queryString2 = "INSERT INTO trustee(name) VALUE(?)";
+    const name = req.body.name;
+    let found = false;
+
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+
+    con.query(queryString, [name], (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      if(rows.length > 0) {
+        found = true;
+      }
+    })
+
+    if(!found) {
+      con.query(queryString2, [name], (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          res.send("There was an internal server error: " + err);
+        }
+        res.json(rows.affectedRows)
+      })
+    }
   })
 
   // Remove all candidates
   server.delete('/nuke', (req, res) => {
-    return handle(req, res)
+    const queryString = "UPDATE user SET voted = 0";
+    const queryString2 = "TRUNCATE TABLE trustee";
+
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      console.log("user table updated")
+    })
+
+    con.query(queryString2, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      console.log("trustee table updated")
+      res.json(rows.affectedRows)
+    })
   })
 
   // Handle Routes Here
