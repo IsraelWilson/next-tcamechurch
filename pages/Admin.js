@@ -78,6 +78,10 @@ export default class Admin extends React.Component {
 
   }
 
+  addCandidate = () => {
+    
+  }
+
   render = () => {
     return (
       <Container>
@@ -85,7 +89,7 @@ export default class Admin extends React.Component {
         {this.getTallyRow(this.state.candidates)}
         <h1>Manage</h1>
         {this.getManageRow(this.state.candidates)}
-        <form onClick={this.login.bind(this)}>
+        <form onClick={this.addCandidate.bind(this)}>
           <Row>
             <input type="text" name="add" value={this.state.name} onChange={this.handleName}/>
             <button type="button">Add Candidate</button>
