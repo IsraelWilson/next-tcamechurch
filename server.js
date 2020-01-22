@@ -239,9 +239,8 @@ server.get('/access', function(req, res) {
         console.log(err);
         res.send("There was an internal server error: " + err);
       }
+      res.json(rows.affectedRows)
     })
-
-    res.send("Database reset")
   })
 
   // Handle Routes Here
