@@ -14,7 +14,7 @@ app.prepare().then(() => {
   server.use(bodyParser.urlencoded({ extended: true }))
   server.use(bodyParser.json())
 
-    // Do they have access
+  // Do they have access
   server.get('/access/:id', function(req, res) {
     const queryString = "SELECT * from user WHERE user_id = ?";
     const id = req.params.id;
@@ -34,6 +34,26 @@ app.prepare().then(() => {
       res.json(rows);
     })
   })
+
+// All users with access
+server.get('/access', function(req, res) {
+  const queryString = "SELECT * from user WHERE voted = 0";
+
+  const con = mysql.createConnection({
+    host: config.env.dbHost,
+    user: config.env.dbUser,
+    password: config.env.dbPass,
+    database: config.env.dbName
+  })
+
+  con.query(queryString, (err, rows, fields) => {
+    if (err) {
+      res.send("There was an internal server error: " + err);
+    }
+
+    res.json(rows);
+  })
+})
 
   // Toggle voting access
   server.put('/toggleAccess', (req, res) => {

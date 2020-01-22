@@ -9,12 +9,14 @@ export default class Admin extends React.Component {
     this.state = {
       live: false,
       candidates: [],
+      users: [],
       name: ""
     };
   }
 
   componentDidMount = () => {
     this.tally()
+    this.getUsers()
   }
 
   tally = () => {
@@ -22,6 +24,15 @@ export default class Admin extends React.Component {
     .then((res) => res.json())
     .then((res) => {
       this.setState({candidates: res});
+    })
+    .catch((err) => { console.log(err) })
+  }
+
+  getUsers = () => {
+    fetch('/access')
+    .then((res) => res.json())
+    .then((res) => {
+      this.setState({users: res});
     })
     .catch((err) => { console.log(err) })
   }
@@ -44,6 +55,10 @@ export default class Admin extends React.Component {
 
     if(type == "manage") {
       buttons = this.getManageButtons(candidates);
+    }
+
+    if(type == "user") {
+      buttons = this.getUserButtons(candidates);
     }
 
     let column = [];
@@ -74,12 +89,22 @@ export default class Admin extends React.Component {
     return <Row>{this.getColumns(candidates, "manage")}</Row>
   }
 
+  getUserButtons = (users) => {
+    let buttons = [];
+    users.map((user) => buttons.push(<div>{user.user_id}</div>));
+    return buttons;
+  }
+
+  getUserRow = (users) => {
+    return <Row>{this.getColumns(users, "user")}</Row>
+  }
+
   handleName = () => {
 
   }
 
-  addCandidate = () => {
-    
+  handleCandidateForm = (event) => {
+
   }
 
   render = () => {
@@ -88,13 +113,16 @@ export default class Admin extends React.Component {
         <h1>Results</h1>
         {this.getTallyRow(this.state.candidates)}
         <h1>Manage</h1>
+        <form onClick={this.handleCandidateForm.bind(this)}>
         {this.getManageRow(this.state.candidates)}
-        <form onClick={this.addCandidate.bind(this)}>
           <Row>
-            <input type="text" name="add" value={this.state.name} onChange={this.handleName}/>
-            <button type="button">Add Candidate</button>
+            <input type="text" value={this.state.name} onChange={this.handleName}/>
+            <button name="add" type="button">Add Candidate</button>
+            <button name="drop" type="button">Remove All</button>
           </Row>
         </form>
+        <h1>Yet To Vote</h1>
+        {this.getUserRow(this.state.users)}
         <style jsx>{`
 
         `}</style>
