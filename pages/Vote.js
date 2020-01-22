@@ -28,7 +28,7 @@ export default class Vote extends React.Component {
 
   getButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<div className="dynamic"><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
+    candidates.map((candidate) => buttons.push(<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
     return buttons;
   }
 
@@ -101,7 +101,7 @@ export default class Vote extends React.Component {
           </Row>
         </form>
         <style jsx>{`
-          .dynamic {
+          div {
             display: flex;
             flex-direction: row;
             flex-grow: 1;
