@@ -118,9 +118,8 @@ app.prepare().then(() => {
 
   // Update votes
   server.put('/update', (req, res) => {
-    console.log("Called update");
     const queryString = "UPDATE vote SET vote_num = vote_num + 1 WHERE trustee_name = ?";
-    const selection = req.body.selection;
+    const name = req.body.name;
 
     const con = mysql.createConnection({
       host: config.env.dbHost,
@@ -129,15 +128,14 @@ app.prepare().then(() => {
       database: config.env.dbName
     })
 
-    for(let i = 0; i < selection.length; i++) {
-      con.query(queryString, [selection[i]], (err, rows, fields) => {
-        if (err) {
-          console.log(err);
-          res.send("There was an internal server error: " + err);
-        }
-        res.json(rows)
-      })
-    }
+
+    con.query(queryString, [name], (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+      res.json(rows)
+    })
   })
 
   // Delete candidate
