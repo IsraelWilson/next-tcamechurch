@@ -175,9 +175,7 @@ server.get('/access', function(req, res) {
         console.log(err);
         res.send("There was an internal server error: " + err);
       }
-      if(rows.length > 0) {
-        res.json(rows.affectedRows)
-      }
+      res.json(rows.affectedRows)
     })
   })
 
@@ -234,7 +232,6 @@ server.get('/access', function(req, res) {
         console.log(err);
         res.send("There was an internal server error: " + err);
       }
-      console.log("user table updated")
     })
 
     con.query(queryString2, (err, rows, fields) => {
@@ -242,9 +239,9 @@ server.get('/access', function(req, res) {
         console.log(err);
         res.send("There was an internal server error: " + err);
       }
-      console.log("trustee table updated")
-      res.json(rows.affectedRows)
     })
+
+    res.send("Database reset")
   })
 
   // Handle Routes Here
