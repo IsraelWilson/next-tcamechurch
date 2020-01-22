@@ -46,6 +46,7 @@ export default class Confirm extends React.Component {
 
       for(let i = 0; i < this.props.selection.length; i++) {
         let success = this.update(this.props.selection[i]);
+        console.log(success);
         if(!success) {
           console.log("There was an error updating the name: " + this.props.selection[i]);
           return;
