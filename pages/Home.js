@@ -64,7 +64,6 @@ export default class Home extends React.Component {
             <form onClick={this.login.bind(this)}>
               <h1>Please Enter Voter ID</h1>
               <Row>
-                <label>User ID</label>
                 <input type="text" name="userID" value={this.state.userID} onChange={this.change}/>
                 <button type="button">Sign In</button>
               </Row>
@@ -82,13 +81,6 @@ export default class Home extends React.Component {
             text-align: center;
           }
 
-          label {
-            font-size: 1rem;
-            font-family: "Roboto", sans-serif;
-            text-align: center;
-            padding: 1rem 2rem;
-          }
-
           input {
             padding: 1rem;
             margin-bottom: 1.5rem;
@@ -97,7 +89,7 @@ export default class Home extends React.Component {
           button {
             border: none;
             padding: 1rem 2rem;
-            margin: 0;
+            margin-bottom: 1.5rem;
             text-decoration: none;
             background: #feda6a;
             color: #232323;
