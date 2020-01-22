@@ -8,7 +8,8 @@ export default class Admin extends React.Component {
     super(props);
     this.state = {
       live: false,
-      candidates: []
+      candidates: [],
+      name: ""
     };
   }
 
@@ -65,12 +66,16 @@ export default class Admin extends React.Component {
 
   getManageButtons = (candidates) => {
     let buttons = [];
-    candidates.map((candidate) => buttons.push(<button type="button">{candidate.trustee_name}: <label>{candidate.vote_num}</label></button>));
+    candidates.map((candidate) => buttons.push(<div>{candidate.trustee_name}: <button>X</button></div>));
     return buttons;
   }
 
   getManageRow = (candidates) => {
     return <Row>{this.getColumns(candidates, "manage")}</Row>
+  }
+
+  handleName = () => {
+
   }
 
   render = () => {
@@ -80,6 +85,12 @@ export default class Admin extends React.Component {
         {this.getTallyRow(this.state.candidates)}
         <h1>Manage</h1>
         {this.getManageRow(this.state.candidates)}
+        <form onClick={this.login.bind(this)}>
+          <Row>
+            <input type="text" name="add" value={this.state.name} onChange={this.handleName}/>
+            <button type="button">Add Candidate</button>
+          </Row>
+        </form>
         <style jsx>{`
 
         `}</style>

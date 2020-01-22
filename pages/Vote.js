@@ -57,7 +57,7 @@ export default class Vote extends React.Component {
   }
 
   submit = () => {
-    if(this.state.numSelected != 10){
+    if(this.state.numSelected != 19){
       return;
     }
 
