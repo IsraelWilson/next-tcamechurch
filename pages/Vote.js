@@ -33,7 +33,7 @@ export default class Vote extends React.Component {
   }
 
   test = () => {
-    return this.state.candidates.map(candidate => (<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
+    return this.state.candidates.map(candidate => (<button>{candidate.name}</button>));
   }
 
   getColumn = (buttonArr) => {
