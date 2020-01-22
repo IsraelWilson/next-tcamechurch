@@ -105,7 +105,7 @@ export default class Admin extends React.Component {
 
   handleCandidateForm = (event) => {
     if(event.target.name == "add") {
-      fetch('/add' + this.state.name, {
+      fetch('/add', {
         method: "POST",
         headers: {
           'Accept': 'application/json',
