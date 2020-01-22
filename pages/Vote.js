@@ -32,6 +32,10 @@ export default class Vote extends React.Component {
     return buttons;
   }
 
+  test = () => {
+    return this.state.candidates.map(candidate => (<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
+  }
+
   getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
@@ -93,6 +97,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
+        {this.test()}
         {this.getRow(this.state.candidates)}
         <form onClick={this.submit.bind(this)}>
           <Row>
