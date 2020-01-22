@@ -74,19 +74,26 @@ export default class Home extends React.Component {
         </Row>
         <style jsx>{`
           form{
-
+            padding: 2rem;
           }
 
           h1 {
-
+            font-size: 2rem;
+            text-align: center;
           }
 
           label {
-
+            font-size: 1rem;
+            font-family: "Roboto", sans-serif;
+            text-align: center;
+            padding: 1rem 2rem;
           }
 
           input {
-
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
           }
 
           button {
@@ -95,21 +102,21 @@ export default class Home extends React.Component {
             padding: 1rem 2rem;
             margin: 0;
             text-decoration: none;
-            background: #0069ed;
-            color: #ffffff;
-            font-family: sans-serif;
+            background: #feda6a;
+            color: #232323;
+            font-family: "Roboto", sans-serif;
             font-size: 1rem;
-            line-height: 1;
             cursor: pointer;
             text-align: center;
-            transition: background 250ms ease-in-out, transform 150ms ease;
+            transition: background 250ms ease-in-out,
+                        transform 150ms ease;
             -webkit-appearance: none;
             -moz-appearance: none;
           }
 
           button:hover,
           button:focus {
-            background: #0053ba;
+            background: #d6a206;
           }
 
           button:focus {
