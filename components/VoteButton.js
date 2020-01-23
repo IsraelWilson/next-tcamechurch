@@ -9,6 +9,7 @@ export default function VoteButton(props) {
         div {
           display: flex;
           justify-content: space-between;
+          padding-right: 2rem;
         }
         `}
       </style>
