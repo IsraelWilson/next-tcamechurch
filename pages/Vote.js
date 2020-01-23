@@ -8,9 +8,14 @@ export default class Vote extends React.Component {
     super(props);
     this.state = {
       candidates: [],
+      candidatesHtml: [],
       selection: [],
       numSelected: 0
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return {candidatesHtml: this.getRow(state.candidatesHtml)};
   }
 
   componentDidMount = () => {
@@ -93,8 +98,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.state.candidates.map(candidate => (<button className="test">{candidate.name}</button>))}
-        {this.getRow(this.state.candidates)}
+        {this.state.candidatesHtml}
         <form onClick={this.submit.bind(this)}>
           <Row>
             <label>{this.state.numSelected}</label>
