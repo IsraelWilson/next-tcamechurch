@@ -29,41 +29,37 @@ export default class Vote extends React.Component {
     .catch((err) => { console.log(err) })
   }
 
-  getButtons = (candidates) => {
-    let buttons = [];
-    candidates.map((candidate) => buttons.push(<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
-    return buttons;
-  }
-
   buttons = () => {
     return (
       this.state.candidates.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange}/>))
     )
   }
 
-  getColumn = (buttonArr) => {
-    return <Column>{buttonArr}</Column>;
+  column = (buttons) => {
+    return (
+        <Column>{buttons}</Column>
+    )
   }
 
-  getColumns = (candidates) => {
-    let buttons = getButtons(candidates);;
-    let column = [];
-    let columns = [];
-
-    for(let i = 0; i < buttons.length; i++) {
-      column.push(buttons[i]);
-      if(i % 10 == 0 && i != 0 || i == buttons.length - 1) {
-        columns.push(this.getColumn(column));
-        column = [];
-      }
-    }
-
-    return columns;
-  }
-
-  getRow = (candidates) => {
-    return <Row>{getColumns(candidates)}</Row>;
-  }
+  // getColumns = (candidates) => {
+  //   let buttons = getButtons(candidates);;
+  //   let column = [];
+  //   let columns = [];
+  //
+  //   for(let i = 0; i < buttons.length; i++) {
+  //     column.push(buttons[i]);
+  //     if(i % 10 == 0 && i != 0 || i == buttons.length - 1) {
+  //       columns.push(this.getColumn(column));
+  //       column = [];
+  //     }
+  //   }
+  //
+  //   return columns;
+  // }
+  //
+  // getRow = (candidates) => {
+  //   return <Row>{getColumns(candidates)}</Row>;
+  // }
 
   submit = () => {
     if(this.state.numSelected != 19){
@@ -102,7 +98,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.buttons()}
+        {this.column(this.buttons())}
         <form onClick={this.submit.bind(this)}>
           <Row>
             <label>{this.state.numSelected}</label>
