@@ -99,7 +99,7 @@ export default class Vote extends React.Component {
       <Container>
         {this.getRow(this.buttons())}
         <form onClick={this.submit.bind(this)}>
-          <Row>
+          <Row justify="space-between">
             <label>{this.state.numSelected}</label>
             <button type="button">Submit</button>
           </Row>
@@ -110,7 +110,9 @@ export default class Vote extends React.Component {
           }
 
           label {
-
+            font-family: "Roboto", sans-serif;
+            font-size: 1rem;
+            text-align: center;
           }
 
           button {
