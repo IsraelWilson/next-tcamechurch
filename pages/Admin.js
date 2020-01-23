@@ -18,6 +18,8 @@ export default class Admin extends React.Component {
   }
 
   componentDidMount = () => {
+    this.tally();
+    this.getUsers();
     this.tIntervalID = setInterval(() => this.tally(), 5000);
     this.uIntervalID = setInterval(() => this.getUsers(), 5000);
   }
