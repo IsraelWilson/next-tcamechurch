@@ -143,7 +143,7 @@ export default class Admin extends React.Component {
         <h1>Manage</h1>
         {this.getRow(this.getManageButtons())}
         <form onClick={this.handleCandidateForm.bind(this)}>
-          <Row>
+          <Row justify="flex-end">
             <input type="text" value={this.state.name} onChange={this.handleName}/>
             <button name="add" type="button">Add Candidate</button>
             <button name="drop" type="button">Remove All</button>
