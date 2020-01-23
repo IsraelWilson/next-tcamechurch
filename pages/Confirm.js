@@ -10,6 +10,7 @@ export default class Confirm extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log("Listen!!!")
     console.log(this.props.selection)
   }
 
