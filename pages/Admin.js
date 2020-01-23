@@ -2,6 +2,9 @@ import React from 'react'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
+import AdminButtonTally from '../components/AdminButtonTally'
+import AdminButtonManage from '../components/AdminButtonManage'
+import AdminButtonUser from '../components/AdminButtonUser'
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -37,30 +40,17 @@ export default class Admin extends React.Component {
     .catch((err) => { console.log(err) })
   }
 
-  getTallyButtons = (candidates) => {
-    let buttons = [];
-    candidates.map((candidate) => buttons.push(<button type="button">{candidate.name}: <label>{candidate.votes}</label></button>));
-    return buttons;
+  getTallyButtons = () => {
+    return (
+      this.state.candidates.map(candidate => (<AdminButtonTally candidate={candidate}/>))
+    )
   }
 
   getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
 
-  getColumns = (candidates, type) => {
-    let buttons = [];
-    if(type == "tally") {
-      buttons = this.getTallyButtons(candidates);
-    }
-
-    if(type == "manage") {
-      buttons = this.getManageButtons(candidates);
-    }
-
-    if(type == "user") {
-      buttons = this.getUserButtons(candidates);
-    }
-
+  getColumns = (buttons) => {
     let column = [];
     let columns = [];
 
@@ -75,28 +65,20 @@ export default class Admin extends React.Component {
     return columns;
   }
 
-  getTallyRow = (candidates) => {
-    return <Row>{this.getColumns(candidates, "tally")}</Row>;
+  getRow = (buttons) => {
+    return <Row>{this.getColumns(buttons)}</Row>;
   }
 
-  getManageButtons = (candidates) => {
-    let buttons = [];
-    candidates.map((candidate) => buttons.push(<div>{candidate.name}: <button name={candidate.name} onClick={this.handleManageButton}>X</button></div>));
-    return buttons;
+  getManageButtons = () => {
+    return (
+      this.state.candidates.map(candidate => (<AdminButtonManage candidate={candidate}/>))
+    )
   }
 
-  getManageRow = (candidates) => {
-    return <Row>{this.getColumns(candidates, "manage")}</Row>
-  }
-
-  getUserButtons = (users) => {
-    let buttons = [];
-    users.map((user) => buttons.push(<div>{user.user_id}</div>));
-    return buttons;
-  }
-
-  getUserRow = (users) => {
-    return <Row>{this.getColumns(users, "user")}</Row>
+  getUserButtons = () => {
+    return (
+      this.state.users.map(user => (<AdminButtonUser user={user}/>))
+    )
   }
 
   handleName = (event) => {
@@ -150,9 +132,9 @@ export default class Admin extends React.Component {
     return (
       <Container>
         <h1>Results</h1>
-        {this.getTallyRow(this.state.candidates)}
+        {this.getRow(this.getTallyButtons())}
         <h1>Manage</h1>
-        {this.getManageRow(this.state.candidates)}
+        {this.getRow(this.getManageButtons())}
         <form onClick={this.handleCandidateForm.bind(this)}>
           <Row>
             <input type="text" value={this.state.name} onChange={this.handleName}/>
@@ -161,7 +143,7 @@ export default class Admin extends React.Component {
           </Row>
         </form>
         <h1>Yet To Vote</h1>
-        {this.getUserRow(this.state.users)}
+        {this.getRow(this.getUserButtons())}
         <style jsx>{`
           h1 {
 
@@ -206,7 +188,7 @@ export default class Admin extends React.Component {
           button:active {
             transform: scale(0.99);
           }
-          
+
         `}</style>
       </Container>
     );

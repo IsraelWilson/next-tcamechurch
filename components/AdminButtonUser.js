@@ -1,11 +1,11 @@
-export default function ConfirmButton(props) {
+export default function AdminButtonUser(props) {
   return (
     <div>
-      <label>{props.name}</label>
+      <label>{props.user.user_id}</label>
       <style jsx>{`
         div {
           display: flex;
-          justify-content: center;
+          justify-content: space-between;
         }
         `}
       </style>
