@@ -7,14 +7,11 @@ import ConfirmButton from '../components/ConfirmButton'
 export default class Confirm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      candidates: []
-    };
   }
 
-  getButtons = (candidates) => {
+  getButtons = (selection) => {
     return (
-      candidates.map(candidate => (<ConfirmButton candidate={candidate}/>))
+      selection.map(name => (<ConfirmButton name={name}/>))
     )
   }
 
@@ -22,8 +19,8 @@ export default class Confirm extends React.Component {
     return <Column>{buttonArr}</Column>;
   }
 
-  getColumns = (candidates) => {
-    let buttons = this.getButtons(candidates);;
+  getColumns = (selection) => {
+    let buttons = this.getButtons(selection);;
     let column = [];
     let columns = [];
 
@@ -38,8 +35,8 @@ export default class Confirm extends React.Component {
     return columns;
   }
 
-  getRow = (candidates) => {
-    return <Row>{this.getColumns(candidates)}</Row>;
+  getRow = (selection) => {
+    return <Row>{this.getColumns(selection)}</Row>;
   }
 
   handleClick = (event) => {
