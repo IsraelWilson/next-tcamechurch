@@ -56,9 +56,9 @@ export default class Vote extends React.Component {
     return columns;
   }
 
-  // getRow = (candidates) => {
-  //   return <Row>{getColumns(candidates)}</Row>;
-  // }
+  getRow = (buttons) => {
+    return <Row>{this.getColumns(buttons)}</Row>;
+  }
 
   submit = () => {
     if(this.state.numSelected != 19){
@@ -97,7 +97,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.getColumns(this.buttons())}
+        {this.getRow(this.buttons())}
         <form onClick={this.submit.bind(this)}>
           <Row>
             <label>{this.state.numSelected}</label>
