@@ -8,10 +8,10 @@ export default function VoteButton(props) {
         label {
           display: block;
           position: relative;
-          padding-left: 5rem;
+          padding-left: 4rem;
           margin-bottom: 12px;
           cursor: pointer;
-          font-size: 3rem;
+          font-size: 2.5rem;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
@@ -30,8 +30,8 @@ export default function VoteButton(props) {
           position: absolute;
           top: 0;
           left: 0;
-          height: 3rem;
-          width: 3rem;
+          height: 2.5rem;
+          width: 2.5rem;
           background-color: #eee;
         }
 
@@ -59,7 +59,7 @@ export default function VoteButton(props) {
           width: 5px;
           height: 10px;
           border: solid white;
-          border-width: 0 3px 3px 0;
+          border-width: 0 1rem 1rem 0;
           -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
           transform: rotate(45deg);
