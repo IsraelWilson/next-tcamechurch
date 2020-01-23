@@ -2,6 +2,7 @@ import React from 'react'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
+import ConfirmButton from '../components/ConfirmButton'
 
 export default class Confirm extends React.Component {
   constructor(props) {
@@ -12,9 +13,9 @@ export default class Confirm extends React.Component {
   }
 
   getButtons = (candidates) => {
-    let buttons = [];
-    if(candidates) candidates.map((candidate) => buttons.push(<button type="button">{candidate}</button>));
-    return buttons;
+    return (
+      candidates.map(candidate => (<ConfirmButton candidate={candidate}/>))
+    )
   }
 
   getColumn = (buttonArr) => {
