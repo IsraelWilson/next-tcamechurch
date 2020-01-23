@@ -71,7 +71,7 @@ export default class Admin extends React.Component {
 
   getManageButtons = () => {
     return (
-      this.state.candidates.map(candidate => (<AdminButtonManage candidate={candidate} click={this.handleManageButton}/>))
+      this.state.candidates.map(candidate => (<AdminButtonManage candidate={candidate} onClick={this.handleManageButton}/>))
     )
   }
 
