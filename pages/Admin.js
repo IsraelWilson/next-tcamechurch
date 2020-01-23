@@ -20,11 +20,10 @@ export default class Admin extends React.Component {
   }
 
   componentDidMount = () => {
-    this.interval = setInterval(this.tally(), 2000)
+    this.setInterval(this.tally(), 2000)
   }
 
   componentWillMount = () => {
-    clearInterval(this.interval)
   }
 
   tally = () => {
