@@ -9,6 +9,10 @@ export default class Confirm extends React.Component {
     super(props);
   }
 
+  componentDidMount = () => {
+    console.log(this.props.selection)
+  }
+
   getButtons = (selection) => {
     return (
       selection.map(name => (<ConfirmButton name={name}/>))
@@ -90,7 +94,6 @@ export default class Confirm extends React.Component {
   render() {
     return (
       <Container>
-        {this.getRow(this.props.selection)}
         <Column>
           <h1>Are you satisfied with your selection?</h1>
           <button name="yes" type="button" onClick={this.handleClick.bind(this)}>Yes</button>
