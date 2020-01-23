@@ -13,17 +13,16 @@ export default class Admin extends React.Component {
       live: false,
       candidates: [],
       users: [],
-      name: "",
-      tIntervalID: 0,
-      uIntervalID: 0
+      name: ""
     };
   }
 
   componentDidMount = () => {
-    this.setInterval(this.tally(), 2000)
+    this.tIntervalID = setInterval(() => this.tally(), 1000);
   }
 
   componentWillMount = () => {
+    clearInterval(this.tIntervalID);
   }
 
   tally = () => {
