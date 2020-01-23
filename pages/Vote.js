@@ -3,8 +3,6 @@ import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
 import VoteButton from '../components/VoteButton'
-import VoteColumn from '../components/VoteColumn'
-import VoteRow from '../components/VoteRow'
 
 export default class Vote extends React.Component {
   constructor(props) {
