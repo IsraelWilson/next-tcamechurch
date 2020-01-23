@@ -7,11 +7,8 @@ export default function VoteButton(props) {
       </div>
       <style jsx>{`
         div {
-
-        }
-
-        label {
-          margin-right: 2rem;
+          display: flex;
+          justify-content: space-between;
         }
         `}
       </style>
