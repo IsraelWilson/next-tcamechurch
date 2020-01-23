@@ -54,7 +54,7 @@ export default function VoteButton(props) {
         }
 
         .checkmark:after {
-          left: 9px;
+          left: 30px;
           top: 5px;
           width: 5px;
           height: 10px;
