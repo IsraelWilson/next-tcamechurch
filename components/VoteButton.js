@@ -29,7 +29,7 @@ export default function VoteButton(props) {
         .checkmark {
           position: absolute;
           top: 0;
-          left: 0;
+          left: 30px;
           height: 3rem;
           width: 3rem;
           background-color: #eee;
@@ -54,7 +54,7 @@ export default function VoteButton(props) {
         }
 
         .checkmark:after {
-          left: 30px;
+          left: 9px;
           top: 5px;
           width: 5px;
           height: 10px;
