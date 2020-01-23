@@ -30,8 +30,8 @@ export default function VoteButton(props) {
           position: absolute;
           top: 0;
           left: 0;
-          height: 25px;
-          width: 25px;
+          height: 3rem;
+          width: 3rem;
           background-color: #eee;
         }
 
