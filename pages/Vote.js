@@ -15,7 +15,7 @@ export default class Vote extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    return {candidatesHtml: this.getRow(state.candidatesHtml)};
+    return {candidatesHtml: Vote.getRow(state.candidatesHtml)};
   }
 
   componentDidMount = () => {
@@ -31,18 +31,18 @@ export default class Vote extends React.Component {
     .catch((err) => { console.log(err) })
   }
 
-  getButtons = (candidates) => {
+  static getButtons = (candidates) => {
     let buttons = [];
     candidates.map((candidate) => buttons.push(<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
     return buttons;
   }
 
-  getColumn = (buttonArr) => {
+  static getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
 
-  getColumns = (candidates) => {
-    let buttons = this.getButtons(candidates);;
+  static getColumns = (candidates) => {
+    let buttons = Vote.getButtons(candidates);;
     let column = [];
     let columns = [];
 
@@ -57,8 +57,8 @@ export default class Vote extends React.Component {
     return columns;
   }
 
-  getRow = (candidates) => {
-    return <Row>{this.getColumns(candidates)}</Row>;
+  static getRow = (candidates) => {
+    return <Row>{Vote.getColumns(candidates)}</Row>;
   }
 
   submit = () => {
