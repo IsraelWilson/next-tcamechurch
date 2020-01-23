@@ -7,10 +7,11 @@ export default function VoteButton(props) {
       </div>
       <style jsx>{`
         div {
-          display: flex;
-          flex-direction: row;
-          flex-grow: 1;
-          justify-content: center;
+
+        }
+
+        label {
+          margin-right: 2rem;
         }
         `}
       </style>
