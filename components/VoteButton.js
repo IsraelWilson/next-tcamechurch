@@ -8,7 +8,7 @@ export default function VoteButton(props) {
         label {
           display: block;
           position: relative;
-          padding-left: 35px;
+          padding-left: 50px;
           margin-bottom: 12px;
           cursor: pointer;
           font-size: 3rem;
@@ -29,7 +29,7 @@ export default function VoteButton(props) {
         .checkmark {
           position: absolute;
           top: 0;
-          left: 30px;
+          left: 0;
           height: 3rem;
           width: 3rem;
           background-color: #eee;
