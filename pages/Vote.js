@@ -42,7 +42,6 @@ export default class Vote extends React.Component {
   }
 
   columns = (buttons) => {
-    let buttons = getButtons(candidates);;
     let column = [];
     let columns = [];
 
