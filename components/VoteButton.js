@@ -11,7 +11,7 @@ export default function VoteButton(props) {
           padding-left: 35px;
           margin-bottom: 12px;
           cursor: pointer;
-          font-size: 22px;
+          font-size: 5rem;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
