@@ -8,7 +8,7 @@ export default function VoteButton(props) {
         label {
           display: block;
           position: relative;
-          padding-left: 50px;
+          padding-left: 5rem;
           margin-bottom: 12px;
           cursor: pointer;
           font-size: 3rem;
