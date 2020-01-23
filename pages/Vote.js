@@ -15,7 +15,7 @@ export default class Vote extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    return {candidatesHtml: Vote.getRow(state.candidatesHtml)};
+    return {candidatesHtml: Vote.getRow(state.candidates)};
   }
 
   componentDidMount = () => {
