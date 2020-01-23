@@ -5,7 +5,7 @@ export default function VoteButton(props) {
       <input name={props.candidate.name} type="checkbox" onChange={props.handleChange}/>
       <span className="checkmark"></span>
       <style jsx>{`
-        label {
+        input {
           position: absolute;
           opacity: 0;
           cursor: pointer;
