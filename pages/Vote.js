@@ -35,20 +35,20 @@ export default class Vote extends React.Component {
     )
   }
 
-  column = (buttons) => {
+  getColumn = (buttons) => {
     return (
         <Column>{buttons}</Column>
     )
   }
 
-  columns = (buttons) => {
+  getColumns = (buttons) => {
     let column = [];
     let columns = [];
 
     for(let i = 0; i < buttons.length; i++) {
       column.push(buttons[i]);
       if(i % 10 == 0 && i != 0 || i == buttons.length - 1) {
-        columns.push({this.column({column})});
+        columns.push({this.getColumn({column})});
         column = [];
       }
     }
@@ -97,7 +97,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.columns(this.buttons())}
+        {this.getColumns(this.buttons())}
         <form onClick={this.submit.bind(this)}>
           <Row>
             <label>{this.state.numSelected}</label>
