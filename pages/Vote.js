@@ -106,7 +106,7 @@ export default class Vote extends React.Component {
           </Row>
         </form>
         <style jsx>{`
-          .test {
+          div {
             display: flex;
             flex-direction: row;
             flex-grow: 1;
