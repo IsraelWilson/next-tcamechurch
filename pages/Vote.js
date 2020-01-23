@@ -2,20 +2,18 @@ import React from 'react'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
+import VoteButton from '../components/VoteButton'
+import VoteColumn from '../components/VoteColumn'
+import VoteRow from '../components/VoteRow'
 
 export default class Vote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       candidates: [],
-      candidatesHtml: [],
       selection: [],
       numSelected: 0
     };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    return {candidatesHtml: Vote.getRow(state.candidates)};
   }
 
   componentDidMount = () => {
@@ -31,18 +29,24 @@ export default class Vote extends React.Component {
     .catch((err) => { console.log(err) })
   }
 
-  static getButtons = (candidates) => {
+  getButtons = (candidates) => {
     let buttons = [];
     candidates.map((candidate) => buttons.push(<div><label>{candidate.name}</label><input name={candidate.name} type="checkbox" onChange={this.handleChange}/></div>));
     return buttons;
   }
 
-  static getColumn = (buttonArr) => {
+  buttons = () => {
+    return (
+      this.state.candidates.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange}/>))
+    )
+  }
+
+  getColumn = (buttonArr) => {
     return <Column>{buttonArr}</Column>;
   }
 
-  static getColumns = (candidates) => {
-    let buttons = Vote.getButtons(candidates);;
+  getColumns = (candidates) => {
+    let buttons = getButtons(candidates);;
     let column = [];
     let columns = [];
 
@@ -57,8 +61,8 @@ export default class Vote extends React.Component {
     return columns;
   }
 
-  static getRow = (candidates) => {
-    return <Row>{Vote.getColumns(candidates)}</Row>;
+  getRow = (candidates) => {
+    return <Row>{getColumns(candidates)}</Row>;
   }
 
   submit = () => {
@@ -98,7 +102,7 @@ export default class Vote extends React.Component {
   render = () => {
     return (
       <Container>
-        {this.state.candidatesHtml}
+        {this.buttons()}
         <form onClick={this.submit.bind(this)}>
           <Row>
             <label>{this.state.numSelected}</label>
