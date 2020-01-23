@@ -7,11 +7,14 @@ import ConfirmButton from '../components/ConfirmButton'
 export default class Confirm extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      candidates: []
+    }
   }
 
   componentDidMount = () => {
-    console.log("Listen!!!")
-    console.log(this.props.selection)
+    this.setState({candidates: this.props.selection})
   }
 
   getButtons = (selection) => {
@@ -96,6 +99,7 @@ export default class Confirm extends React.Component {
     return (
       <Container>
         <Column>
+          {this.getRow(this.state.candidates)}
           <h1>Are you satisfied with your selection?</h1>
           <button name="yes" type="button" onClick={this.handleClick.bind(this)}>Yes</button>
           <button name="no" type="button" onClick={this.handleClick.bind(this)}>No</button>
