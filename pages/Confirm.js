@@ -114,7 +114,6 @@ export default class Confirm extends React.Component {
 
           button {
             display: flex;
-
             flex-direction: row;
             flex-wrap: wrap;
             flex-grow: 1;
