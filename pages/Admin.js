@@ -160,11 +160,9 @@ export default class Admin extends React.Component {
           }
 
           input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
           }
 
           button {
