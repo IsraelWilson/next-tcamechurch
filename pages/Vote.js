@@ -109,7 +109,7 @@ export default class Vote extends React.Component {
 
           label {
             font-family: "Roboto", sans-serif;
-            font-size: 1rem;
+            font-size: 2.5rem;
             text-align: center;
           }
 
@@ -122,7 +122,7 @@ export default class Vote extends React.Component {
             background: #feda6a;
             color: #232323;
             font-family: "Roboto", sans-serif;
-            font-size: 1rem;
+            font-size: 2.5rem;
             cursor: pointer;
             text-align: center;
             transition: background 250ms ease-in-out,
