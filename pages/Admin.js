@@ -201,8 +201,8 @@ export default class Admin extends React.Component {
             background: #ff3333;
           }
 
-          button:hover,
-          button:focus .red {
+          .red:hover,
+          .red:focus {
             background: #cc0000;
           }
 
