@@ -59,7 +59,7 @@ export default function VoteButton(props) {
           width: 5px;
           height: 10px;
           border: solid white;
-          border-width: 0 1rem 1rem 0;
+          border-width: 0 0.5rem 0.5rem 0;
           -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
           transform: rotate(45deg);
