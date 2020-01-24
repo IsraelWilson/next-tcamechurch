@@ -101,12 +101,15 @@ export default class Confirm extends React.Component {
         <Column>
           {this.getRow(this.state.candidates)}
           <h1>Are you satisfied with your selection?</h1>
-          <button name="yes" type="button" onClick={this.handleClick.bind(this)}>Yes</button>
-          <button name="no" type="button" onClick={this.handleClick.bind(this)}>No</button>
+          <Row>
+            <button name="yes" type="button" onClick={this.handleClick.bind(this)}>Yes</button>
+            <button name="no" type="button" onClick={this.handleClick.bind(this)}>No</button>
+          </Row>
         </Column>
         <style jsx>{`
           h1 {
-
+            font-size: 2.5rem;
+            text-align: center;
           }
 
           button {

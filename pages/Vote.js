@@ -45,7 +45,7 @@ export default class Vote extends React.Component {
 
     for(let i = 0; i < buttons.length; i++) {
       column.push(buttons[i]);
-      if(i % 10 == 0 && i != 0 || i == buttons.length - 1) {
+      if(i % 9 == 0 && i != 0 || i == buttons.length - 1) {
         columns.push(this.getColumn(column));
         column = [];
       }
