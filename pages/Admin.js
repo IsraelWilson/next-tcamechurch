@@ -146,45 +146,48 @@ export default class Admin extends React.Component {
           <Row justify="flex-end">
             <input type="text" value={this.state.name} onChange={this.handleName}/>
             <button name="add" type="button">Add Candidate</button>
-            <button name="drop" type="button">Remove All</button>
+            <button name="drop" type="button" className="red">Remove All</button>
           </Row>
         </form>
         <h1>Yet To Vote</h1>
         {this.getRow(this.getUserButtons())}
         <style jsx>{`
           h1 {
-
+            font-size: 2.5rem;
           }
 
           form {
-
           }
 
           input {
-
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
           }
 
           button {
-            display: inline-block;
             border: none;
             padding: 1rem 2rem;
-            margin: 0;
+            margin-left: 0.25rem;
+            margin-bottom: 1.5rem;
             text-decoration: none;
-            background: #0069ed;
-            color: #ffffff;
-            font-family: sans-serif;
-            font-size: 1rem;
-            line-height: 1;
+            background: #feda6a;
+            color: #232323;
+            font-family: "Roboto", sans-serif;
+            font-size: 2.5rem;
             cursor: pointer;
             text-align: center;
-            transition: background 250ms ease-in-out, transform 150ms ease;
+            transition: background 250ms ease-in-out,
+                        transform 150ms ease;
             -webkit-appearance: none;
             -moz-appearance: none;
           }
 
           button:hover,
           button:focus {
-            background: #0053ba;
+            background: #d6a206;
           }
 
           button:focus {
@@ -194,6 +197,10 @@ export default class Admin extends React.Component {
 
           button:active {
             transform: scale(0.99);
+          }
+
+          .red {
+            background: #ff3333;
           }
 
         `}</style>

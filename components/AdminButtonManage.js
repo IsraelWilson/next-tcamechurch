@@ -23,16 +23,12 @@ export default function AdminButtonManage(props) {
         }
 
         button {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          flex-grow: 1;
           border: none;
           padding: 1rem 2rem;
           margin-left: 0.25rem;
           margin-bottom: 1.5rem;
           text-decoration: none;
-          background: #feda6a;
+          background: #ff3333;
           color: #232323;
           font-family: "Roboto", sans-serif;
           font-size: 2.5rem;
