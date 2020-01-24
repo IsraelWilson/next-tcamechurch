@@ -42,7 +42,7 @@ export default function AdminButtonManage(props) {
 
         button:hover,
         button:focus {
-          background: #d6a206;
+          background: #cc0000;
         }
 
         button:focus {
@@ -52,6 +52,7 @@ export default function AdminButtonManage(props) {
 
         button:active {
           transform: scale(0.99);
+        }ckground: #cc0000;
         }
         `}
       </style>
