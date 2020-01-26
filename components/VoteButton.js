@@ -2,7 +2,7 @@ export default function VoteButton(props) {
   return (
     <label>
       {props.candidate.name}
-      <input name={props.candidate.name} type="checkbox" onChange={props.handleChange}/>
+      <input name={props.candidate.name} type="checkbox" onChange={props.handleChange} {!props.selection.includes(props.candidate.name) && props.count >= 19 ? disabled : }/>
       <span className="checkmark"></span>
       <style jsx>{`
         label {
