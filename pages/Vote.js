@@ -29,7 +29,7 @@ export default class Vote extends React.Component {
 
   buttons = () => {
     return (
-      this.state.candidates.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} selection={this.state.selection} count={this.state.numSelected}/>))
+      this.state.candidates.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} disabled={!this.state.selection.includes(candidate.name) && this.state.numSelected >= 19 ? "disabled" : false}/>))
     )
   }
 
