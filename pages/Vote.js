@@ -28,8 +28,19 @@ export default class Vote extends React.Component {
   }
 
   buttons = () => {
+    let arr = this.state.candidates;
+    let temp;
+    for(let i = 0; i < arr.length - 1; i++) {
+      for(let j = 0; j < arr.length - 1; j++) {
+        if(arr[i].split(" ")[1] < arr[i + 1].split(" ")[1]) {
+          temp = arr[i + 1];
+          arr[i + 1] = arr[i];
+          arr[i] = temp;
+        }
+      }
+    }
     return (
-      this.state.candidates.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} disabled={!this.state.selection.includes(candidate.name) && this.state.numSelected >= 19 ? "disabled" : false}/>))
+      arr.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} disabled={!this.state.selection.includes(candidate.name) && this.state.numSelected >= 19 ? "disabled" : false}/>))
     )
   }
 
