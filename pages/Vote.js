@@ -30,7 +30,7 @@ export default class Vote extends React.Component {
   buttons = () => {
     let arr = this.state.candidates;
     let temp;
-    arr.sort((a, b) => b.name.match(/\s(.+)/)[1].localeCompare(a.name.match(/\s(.+)/)[1])).reverse();
+    arr.sort((a, b) => b.name.match(/\s(a-zA-Z+)/)[1].localeCompare(a.name.match(/\s(a-zA-Z+)/)[1])).reverse();
     return (
       arr.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} disabled={!this.state.selection.includes(candidate.name) && this.state.numSelected >= 19 ? "disabled" : false}/>))
     )
