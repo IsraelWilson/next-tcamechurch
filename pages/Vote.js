@@ -32,7 +32,7 @@ export default class Vote extends React.Component {
     let temp;
     for(let i = 0; i < arr.length - 1; i++) {
       for(let j = 0; j < arr.length - 1; j++) {
-        if(arr[i].split(" ")[1] < arr[i + 1].split(" ")[1]) {
+        if(arr[i].name.split(" ")[1] < arr[i + 1].name.split(" ")[1]) {
           temp = arr[i + 1];
           arr[i + 1] = arr[i];
           arr[i] = temp;
