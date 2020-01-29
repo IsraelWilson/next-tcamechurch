@@ -19,9 +19,8 @@ export default function AdminButtonTally(props) {
         label {
           display: block;
           position: relative;
-          margin-bottom: 12px;
           cursor: pointer;
-          font-size: 2.5rem;
+          font-size: 1.5rem;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
