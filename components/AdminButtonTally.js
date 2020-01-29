@@ -16,14 +16,14 @@ export default function AdminButtonTally(props) {
         .colN {
           display: flex;
           flex-direction: column;
-          flex-basis: 65%;
+          flex-basis: 70%;
         }
 
         .colV {
           display: flex;
           flex-direction: column;
-          flex-basis: 35%;
-          padding-right: 1.5rem;
+          flex-basis: 30%;
+          padding-right: 1rem;
         }
 
         label {
