@@ -159,7 +159,7 @@ export default class Admin extends React.Component {
           <Row justify="flex-end">
             <input type="text" value={this.state.name} onChange={this.handleName}/>
             <button name="add" type="button">Add Candidate</button>
-            <button name="drop" type="button" className="red">Remove All</button>
+            <button name="drop" type="button" className="yellow">Remove All</button>
             <button name="reset" type="button" className="red">Reset</button>
           </Row>
         </form>
@@ -213,6 +213,10 @@ export default class Admin extends React.Component {
 
           .red {
             background: #ff3333;
+          }
+
+          .yellow {
+            background: #ffcc00;
           }
 
           .red:hover,

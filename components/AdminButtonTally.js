@@ -12,6 +12,7 @@ export default function AdminButtonTally(props) {
           display: block;
           position: relative;
           padding-left: 4rem;
+          margin-right: 12px;
           margin-bottom: 12px;
           cursor: pointer;
           font-size: 2.5rem;
