@@ -23,7 +23,7 @@ export default function AdminButtonTally(props) {
           display: flex;
           flex-direction: column;
           flex-basis: 35%;
-          padding-right: 1rem;
+          padding-right: 2rem;
         }
 
         label {
