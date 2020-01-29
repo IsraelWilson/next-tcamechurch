@@ -1,5 +1,5 @@
-import Row from 'Row'
-import Column from 'Column'
+import Row from './Row'
+import Column from './Column'
 
 export default function AdminButtonTally(props) {
   return (
