@@ -1,7 +1,15 @@
+import Row from 'Row'
+import Column from 'Column'
+
 export default function AdminButtonTally(props) {
   return (
-    <div>
-      <label>{props.candidate.name}</label><label>{props.candidate.votes}</label>
+    <Row>
+      <Column>
+        <label>{props.candidate.name}</label>
+      </Column>
+      <Column>
+        <label>{props.candidate.votes}</label>
+      </Column>
       <style jsx>{`
         div {
           display: flex;
@@ -11,7 +19,6 @@ export default function AdminButtonTally(props) {
         label {
           display: block;
           position: relative;
-          padding-right: 1rem;
           margin-bottom: 12px;
           cursor: pointer;
           font-size: 2.5rem;
@@ -22,6 +29,6 @@ export default function AdminButtonTally(props) {
         }
         `}
       </style>
-    </div>
+    </Row>
   )
 }
