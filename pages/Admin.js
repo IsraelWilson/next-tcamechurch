@@ -211,6 +211,10 @@ export default class Admin extends React.Component {
             transform: scale(0.99);
           }
 
+          .blue {
+            background: #4d79ff;
+          }
+
           .red {
             background: #ff3333;
           }
