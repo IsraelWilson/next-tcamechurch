@@ -10,7 +10,6 @@ export default function AdminButtonTally(props) {
       <style jsx>{`
         div {
           display: flex;
-          justify-content: space-between;
         }
 
         .col {
