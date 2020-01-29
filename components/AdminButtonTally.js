@@ -1,8 +1,8 @@
 export default function AdminButtonTally(props) {
   return (
     <div>
+      <div className="colN">
         <label>{props.candidate.name}</label>
-        <div className="colN">
       </div>
       <div className="colV">
         <label>{props.candidate.votes}</label>
@@ -23,14 +23,14 @@ export default function AdminButtonTally(props) {
           display: flex;
           flex-direction: column;
           flex-basis: 25%;
-          padding-right: 2rem;
+          padding-right: 1rem;
         }
 
         label {
           display: block;
           position: relative;
           cursor: pointer;
-          font-size: 1.5rem;
+          font-size: 2rem;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
