@@ -16,6 +16,7 @@ export default class Vote extends React.Component {
 
   componentDidMount = () => {
     this.tally()
+    console.log("Called Tally")
   }
 
   tally = () => {
@@ -72,15 +73,14 @@ export default class Vote extends React.Component {
 
   handleChange = (event) => {
     let update = this.state.selection;
-    console.log(update);
+
     if(event.target.checked) {
       update.push(event.target.name);
       this.setState({selection: update,
                      numSelected: this.state.numSelected + 1});
-      console.log("Box was checked");
     }
-    else if(!event.target.checked) {
-      console.log("Box was unchecked");
+
+    if(!event.target.checked) {
       for(let i = 0; i < update.length; i++) {
         if(update[i] == event.target.name) {
           update.splice(i, 1);

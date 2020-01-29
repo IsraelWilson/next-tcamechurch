@@ -107,6 +107,19 @@ export default class Admin extends React.Component {
       .catch((err) => { console.log(err) })
     }
     else if(event.target.name == "drop") {
+      fetch('/dropCandidates', {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: this.state.name })
+      })
+      .then((res) => res.json())
+      .then((res) => { this.tally(); })
+      .catch((err) => { console.log(err) })
+    }
+    else if(event.target.name == "reset") {
       fetch('/nuke', {
         method: "DELETE",
         headers: {
@@ -147,6 +160,7 @@ export default class Admin extends React.Component {
             <input type="text" value={this.state.name} onChange={this.handleName}/>
             <button name="add" type="button">Add Candidate</button>
             <button name="drop" type="button" className="red">Remove All</button>
+            <button name="reset" type="button" className="red">Reset</button>
           </Row>
         </form>
         <h1>Yet To Vote</h1>
