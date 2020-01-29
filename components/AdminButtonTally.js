@@ -16,6 +16,7 @@ export default function AdminButtonTally(props) {
         .col {
           display: flex;
           flex-direction: column;
+          flex-grow: 1;
         }
 
         label {
