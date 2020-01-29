@@ -234,6 +234,25 @@ server.get('/access', function(req, res) {
     })
   })
 
+  // Reset all users
+  server.delete('/resetUsers', (req, res) => {
+    const queryString = "UPDATE user SET voted = 0";
+
+    const con = mysql.createConnection({
+      host: config.env.dbHost,
+      user: config.env.dbUser,
+      password: config.env.dbPass,
+      database: config.env.dbName
+    })
+
+    con.query(queryString, (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        res.send("There was an internal server error: " + err);
+      }
+    })
+  })
+
   // Remove all candidates and reset users
   server.delete('/nuke', (req, res) => {
     const queryString = "UPDATE user SET voted = 0";

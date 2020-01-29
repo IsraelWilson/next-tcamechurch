@@ -120,7 +120,7 @@ export default class Admin extends React.Component {
       .catch((err) => { console.log(err) })
     }
     else if(event.target.name == "reset") {
-      fetch('/nuke', {
+      fetch('/resetUsers', {
         method: "DELETE",
         headers: {
           'Accept': 'application/json',
