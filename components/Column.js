@@ -41,6 +41,7 @@ export default function Column(props) {
             justify-content: ${props.justify};
             align-items: ${props.align};
             margin: 1rem;
+            padding: 1rem;
           }
         }
 
