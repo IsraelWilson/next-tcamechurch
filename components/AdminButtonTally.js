@@ -10,19 +10,7 @@ export default function AdminButtonTally(props) {
       <style jsx>{`
         div {
           display: flex;
-        }
-
-        .name {
-          display: flex;
-          flex-direction: column;
-          padding: 1rem;
-        }
-
-        .vote {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 1rem;
+          justify-content: space-around;
         }
 
         label {
