@@ -2,18 +2,24 @@ export default function AdminButtonTally(props) {
   return (
     <div>
         <label>{props.candidate.name}</label>
-        <div className="col">
+        <div className="colN">
       </div>
-      <div className="col">
+      <div className="colV">
         <label>{props.candidate.votes}</label>
       </div>
       <style jsx>{`
         div {
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
         }
 
-        .col {
+        .colN {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 3;
+        }
+
+        .colV {
           display: flex;
           flex-direction: column;
           flex-grow: 1;
