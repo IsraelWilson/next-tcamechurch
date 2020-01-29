@@ -30,7 +30,7 @@ export default function AdminButtonTally(props) {
           display: block;
           position: relative;
           cursor: pointer;
-          font-size: 2rem;
+          font-size: 2.5rem;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
