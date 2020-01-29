@@ -21,7 +21,7 @@ export default function AdminButtonTally(props) {
         .vote {
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
+          justify-content: flex-end;
           padding: 1rem;
         }
 
