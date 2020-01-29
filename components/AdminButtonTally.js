@@ -2,9 +2,9 @@ export default function AdminButtonTally(props) {
   return (
     <div>
         <label>{props.candidate.name}</label>
-        <div className="col">
+        <div className="name">
       </div>
-      <div className="col">
+      <div className="vote">
         <label>{props.candidate.votes}</label>
       </div>
       <style jsx>{`
@@ -12,9 +12,16 @@ export default function AdminButtonTally(props) {
           display: flex;
         }
 
-        .col {
+        .name {
           display: flex;
           flex-direction: column;
+          padding: 1rem;
+        }
+
+        .vote {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
           padding: 1rem;
         }
 
