@@ -22,7 +22,7 @@ export default class Vote extends React.Component {
     fetch('/tally')
     .then((res) => res.json())
     .then((res) => {
-      res.sort((a, b) => b.name.match(/\s([a-zA-Z]+)/)[1].localeCompare(a.name.match(/\s([a-zA-Z]+)/)[1])).reverse();
+      res.sort((a, b) => b.name.match(/\s([a-zA-Z0-9]+)/)[1].localeCompare(a.name.match(/\s([a-zA-Z0-9]+)/)[1])).reverse();
       this.setState({candidates: res});
     })
     .catch((err) => { console.log(err) })
