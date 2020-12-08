@@ -1,11 +1,8 @@
-#Ignore .next/
-.next/
-
-#Ignore node_modules/
+# IGNORE
+.*
 node_modules/
-
-#Ignore out/ and build/
 out/
 build/
 
-next.config.js
+# DONT IGNORE
+!.gitignore
