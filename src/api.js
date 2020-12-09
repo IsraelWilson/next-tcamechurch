@@ -14,8 +14,14 @@ const con = mysql.createConnection({
   database: process.env.DBNAME
 })
 
+// Pass this method to endpoints that require an authenticated user
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.send(401);
+}
+
 // Do they have access
-router.get('/access/:id', function(req, res) {
+router.get('/access/:id', ensureAuthenticated, function(req, res) {
   const queryString = "SELECT * from user WHERE user_id = ?";
   const id = req.params.id;
 
@@ -29,7 +35,7 @@ router.get('/access/:id', function(req, res) {
 })
 
 // All users with access
-router.get('/access', function(req, res) {
+router.get('/access', ensureAuthenticated, function(req, res) {
   const queryString = "SELECT * from user WHERE voted = 0";
 
   con.query(queryString, (err, rows, fields) => {
@@ -42,7 +48,7 @@ router.get('/access', function(req, res) {
 })
 
 // Toggle voting access
-router.put('/toggleAccess', (req, res) => {
+router.put('/toggleAccess', ensureAuthenticated, (req, res) => {
   const queryString = "UPDATE user SET voted = 1 WHERE user_id = ?";
   const id = req.body.id;
 
@@ -56,7 +62,7 @@ router.put('/toggleAccess', (req, res) => {
 })
 
 // Is voting open
-router.get('/open', (req, res) => {
+router.get('/open', ensureAuthenticated, (req, res) => {
   const queryString = "SELECT * from open";
 
   con.query(queryString, (err, rows, fields) => {
@@ -69,7 +75,7 @@ router.get('/open', (req, res) => {
 })
 
 // Toggle open state
-router.put('/toggleOpen', (req, res) => {
+router.put('/toggleOpen', ensureAuthenticated, (req, res) => {
   const queryString = "UPDATE open SET open = 0 WHERE open = 1";
 
   con.query(queryString, (err, rows, fields) => {
@@ -82,7 +88,7 @@ router.put('/toggleOpen', (req, res) => {
 })
 
 // Get all votes
-router.get('/tally', (req, res) => {
+router.get('/tally', ensureAuthenticated, (req, res) => {
   const queryString = "SELECT * from trustee ORDER BY votes DESC";
 
   con.query(queryString, (err, rows, fields) => {
@@ -95,7 +101,7 @@ router.get('/tally', (req, res) => {
 })
 
 // Update votes
-router.put('/update', (req, res) => {
+router.put('/update', ensureAuthenticated, (req, res) => {
   const queryString = "UPDATE trustee SET votes = votes + 1 WHERE name = ?";
   const name = req.body.name;
 
@@ -110,7 +116,7 @@ router.put('/update', (req, res) => {
 })
 
 // Delete candidate
-router.delete('/delete', (req, res) => {
+router.delete('/delete', ensureAuthenticated, (req, res) => {
   const queryString = "DELETE FROM trustee WHERE name = ?";
   const name = req.body.name;
 
@@ -124,7 +130,7 @@ router.delete('/delete', (req, res) => {
 })
 
 // Add candidate
-router.post('/add', (req, res) => {
+router.post('/add', ensureAuthenticated, (req, res) => {
   const queryString = "SELECT * FROM trustee WHERE name = ?";
   const queryString2 = "INSERT INTO trustee(name) VALUE(?)";
   const name = req.body.name;
@@ -153,7 +159,7 @@ router.post('/add', (req, res) => {
 })
 
 // Remove all candidates
-router.delete('/dropCandidates', (req, res) => {
+router.delete('/dropCandidates', ensureAuthenticated, (req, res) => {
   const queryString = "TRUNCATE TABLE trustee";
 
   con.query(queryString, (err, rows, fields) => {
@@ -165,7 +171,7 @@ router.delete('/dropCandidates', (req, res) => {
 })
 
 // Reset all users
-router.delete('/resetUsers', (req, res) => {
+router.delete('/resetUsers', ensureAuthenticated, (req, res) => {
   const queryString = "UPDATE user SET voted = 0";
 
   con.query(queryString, (err, rows, fields) => {
@@ -177,7 +183,7 @@ router.delete('/resetUsers', (req, res) => {
 })
 
 // Remove all candidates and reset users
-router.delete('/nuke', (req, res) => {
+router.delete('/nuke', ensureAuthenticated, (req, res) => {
   const queryString = "UPDATE user SET voted = 0";
   const queryString2 = "TRUNCATE TABLE trustee";
 
