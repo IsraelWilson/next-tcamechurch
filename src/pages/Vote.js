@@ -1,47 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
 import VoteButton from '../components/VoteButton'
 
-export default class Vote extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      candidates: [],
-      selection: [],
-      numSelected: 0
-    };
-  }
+export default function Vote(props) {
+  const [selection, setSelection] = useState([])
 
-  componentDidMount = () => {
-    this.tally()
-  }
-
-  tally = () => {
-    fetch('/tally')
-    .then((res) => res.json())
-    .then((res) => {
-      res.sort((a, b) => b.name.match(/\s([a-zA-Z0-9]+)/)[1].localeCompare(a.name.match(/\s([a-zA-Z0-9]+)/)[1])).reverse();
-      this.setState({candidates: res});
-    })
-    .catch((err) => { console.log(err) })
-  }
-
-  buttons = () => {
+  function buttons() {
     let arr = this.state.candidates;
     return (
       arr.map(candidate => (<VoteButton candidate={candidate} handleChange={this.handleChange} disabled={!this.state.selection.includes(candidate.name) && this.state.numSelected >= 19 ? "disabled" : false}/>))
     )
   }
 
-  getColumn = (buttons) => {
+  function getColumn(buttons) {
     return (
         <Column>{buttons}</Column>
     )
   }
 
-  getColumns = (buttons) => {
+  function getColumns(buttons) {
     let column = [];
     let columns = [];
 
@@ -56,11 +35,11 @@ export default class Vote extends React.Component {
     return columns;
   }
 
-  getRow = (buttons) => {
+  function getRow(buttons) {
     return <Row>{this.getColumns(buttons)}</Row>;
   }
 
-  submit = () => {
+  function submit() {
     if(this.state.numSelected != 19){
       return;
     }
@@ -69,7 +48,7 @@ export default class Vote extends React.Component {
 
   }
 
-  handleChange = (event) => {
+  function handleChange(event) {
     let update = this.state.selection;
 
     if(event.target.checked) {
@@ -93,60 +72,68 @@ export default class Vote extends React.Component {
     }
   }
 
-  render = () => {
-    return (
-      <Container>
-        {this.getRow(this.buttons())}
-        <form onClick={this.submit.bind(this)}>
-          <Row justify="space-between">
-            <label>{this.state.numSelected}</label>
-            <button type="button">Submit</button>
-          </Row>
-        </form>
-        <style jsx>{`
-          form {
-            padding: 2rem;
-          }
+  return (
+    <Container>
+      {this.getRow(this.buttons())}
+      <form onClick={this.submit.bind(this)}>
+        <Row justify="space-between">
+          <label>{this.state.numSelected}</label>
+          <button type="button">Submit</button>
+        </Row>
+      </form>
+      <style jsx>{`
+        form {
+          padding: 2rem;
+        }
 
-          label {
-            font-family: "Roboto", sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
-          }
+        label {
+          font-family: "Roboto", sans-serif;
+          font-size: 2.5rem;
+          text-align: center;
+        }
 
-          button {
-            border: none;
-            padding: 1rem 2rem;
-            margin-left: 0.25rem;
-            margin-bottom: 1.5rem;
-            text-decoration: none;
-            background: #feda6a;
-            color: #232323;
-            font-family: "Roboto", sans-serif;
-            font-size: 2.5rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background 250ms ease-in-out,
-                        transform 150ms ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-          }
+        button {
+          border: none;
+          padding: 1rem 2rem;
+          margin-left: 0.25rem;
+          margin-bottom: 1.5rem;
+          text-decoration: none;
+          background: #feda6a;
+          color: #232323;
+          font-family: "Roboto", sans-serif;
+          font-size: 2.5rem;
+          cursor: pointer;
+          text-align: center;
+          transition: background 250ms ease-in-out,
+                      transform 150ms ease;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
 
-          button:hover,
-          button:focus {
-            background: #d6a206;
-          }
+        button:hover,
+        button:focus {
+          background: #d6a206;
+        }
 
-          button:focus {
-            outline: 1px solid #fff;
-            outline-offset: -4px;
-          }
+        button:focus {
+          outline: 1px solid #fff;
+          outline-offset: -4px;
+        }
 
-          button:active {
-            transform: scale(0.99);
-          }
-        `}</style>
-      </Container>
-    );
+        button:active {
+          transform: scale(0.99);
+        }
+      `}</style>
+    </Container>
+  )
+}
+
+Vote.getInitialProps = async ({ req }) => {
+  const baseURL = req ? `${req.protocol}://${req.get("Host")}` : ""
+  const res = await fetch(`${baseURL}/tally`)
+  console.log(res)
+
+  return {
+    candidates: await res.json()
   }
 }

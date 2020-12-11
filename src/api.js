@@ -14,38 +14,15 @@ const con = mysql.createConnection({
   database: process.env.DBNAME
 })
 
+con.connect(function(err) {
+    if (err) throw err;
+})
+
 // Pass this method to endpoints that require an authenticated user
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.send(401);
 }
-
-// Do they have access
-router.get('/access/:id', ensureAuthenticated, function(req, res) {
-  const queryString = "SELECT * from user WHERE user_id = ?";
-  const id = req.params.id;
-
-  con.query(queryString, [id], (err, rows, fields) => {
-    if (err) {
-      res.send("There was an internal router error: " + err);
-    }
-
-    res.json(rows);
-  })
-})
-
-// All users with access
-router.get('/access', ensureAuthenticated, function(req, res) {
-  const queryString = "SELECT * from user WHERE voted = 0";
-
-  con.query(queryString, (err, rows, fields) => {
-    if (err) {
-      res.send("There was an internal router error: " + err);
-    }
-
-    res.json(rows);
-  })
-})
 
 // Toggle voting access
 router.put('/toggleAccess', ensureAuthenticated, (req, res) => {

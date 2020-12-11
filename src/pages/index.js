@@ -1,42 +1,135 @@
 import React from 'react'
+import Link from 'next/link'
 import Meta from '../components/Meta.js'
-import Admin from './Admin.js'
-import Home from './Home.js'
-import Vote from './Vote.js'
-import Confirm from './Confirm.js'
+import Container from '../components/Container.js'
+import Row from '../components/Row.js'
+import Column from '../components/Column.js'
 
-export default class Index extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: <Home getPage={this.getPage.bind(this)}/>
-    };
-  }
+export default function Index({ user }) {
+  return (
+    user ?
+      <Container>
+        <Row justify="center">
+          <Column align="center">
+            <Link href="/Vote">
+              <a>Vote</a>
+            </Link>
+          </Column>
+        </Row>
+        <style jsx>{`
+          form{
+            padding: 2rem;
+          }
 
-  getPage = (page, names = [], id = "") => {
-    if(page == "home") {
-      this.setState({page: <Home getPage={this.getPage.bind(this)}/>});
-    }
+          h1 {
+            font-size: 2rem;
+            text-align: center;
+          }
 
-    if(page == "vote") {
-      this.setState({page: <Vote getPage={this.getPage.bind(this)} selection={names} user={id}/>});
-    }
+          input {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+          }
 
-    if(page == "confirm") {
-      this.setState({page: <Confirm getPage={this.getPage.bind(this)} selection={names} user={id}/>});
-    }
+          button {
+            border: none;
+            padding: 1rem 2rem;
+            margin-left: 0.25rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            background: #feda6a;
+            color: #232323;
+            font-family: "Roboto", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 250ms ease-in-out,
+                        transform 150ms ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+          }
 
-    if(page == "admin") {
-      this.setState({page: <Admin getPage={this.getPage.bind(this)}/>});
-    }
-  }
+          button:hover,
+          button:focus {
+            background: #d6a206;
+          }
 
-  render = () => {
-    return (
-      <div>
-        <Meta/>
-        {this.state.page}
-      </div>
-    );
-  }
+          button:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+          }
+
+          button:active {
+            transform: scale(0.99);
+          }
+
+          p {
+            text-align: center;
+          }
+
+        `}</style>
+      </Container>
+      :
+      <Container>
+        <Row justify="center">
+          <Column align="center">
+            <Link href="/login">
+              <a>Sign In</a>
+            </Link>
+          </Column>
+        </Row>
+        <style jsx>{`
+          form{
+            padding: 2rem;
+          }
+
+          h1 {
+            font-size: 2rem;
+            text-align: center;
+          }
+
+          input {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+          }
+
+          button {
+            border: none;
+            padding: 1rem 2rem;
+            margin-left: 0.25rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            background: #feda6a;
+            color: #232323;
+            font-family: "Roboto", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 250ms ease-in-out,
+                        transform 150ms ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+          }
+
+          button:hover,
+          button:focus {
+            background: #d6a206;
+          }
+
+          button:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+          }
+
+          button:active {
+            transform: scale(0.99);
+          }
+
+          p {
+            text-align: center;
+          }
+
+        `}</style>
+      </Container>
+  )
 }

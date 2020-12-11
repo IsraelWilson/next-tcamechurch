@@ -1,7 +1,7 @@
 {
   "name": "next-tcamechurch",
   "version": "1.0.0",
-  "description": "",
+  "description": "a church voting application",
   "main": "index.js",
   "scripts": {
     "dev": "node ./src/server.js",
