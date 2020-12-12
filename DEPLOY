@@ -1,0 +1,4 @@
+NOTES
+---------------------------------------------------------------------------------------------------------------------------------------------
+Mysql needs to have its authentication method changed to older version until support for the new authentication option is supported:
+URL: https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server/50131831#50131831

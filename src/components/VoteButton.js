@@ -1,8 +1,9 @@
 export default function VoteButton(props) {
+
   return (
     <label>
-      {props.candidate.name}
-      <input name={props.candidate.name} type="checkbox" onChange={props.handleChange} disabled={props.disabled}/>
+      {props.name}
+      <input name={props.name} type="checkbox" checked={props.checked} onChange={props.toggleSelected} disabled={props.disabled}/>
       <span className="checkmark"></span>
       <style jsx>{`
         label {

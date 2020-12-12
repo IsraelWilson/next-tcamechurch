@@ -2,6 +2,7 @@ require("dotenv").config()
 
 const express = require("express");
 const passport = require("passport");
+const con = require('./db');
 
 const router = express.Router();
 
@@ -15,6 +16,16 @@ router.get("/callback", (req, res, next) => {
     if (!user) return res.redirect("/login");
     req.logIn(user, (err) => {
       if (err) return next(err);
+
+      // Add the user to local database
+      const queryString = "INSERT IGNORE INTO user (auth_id, is_admin, created_at, updated_at) VALUES (?, 0, CURDATE(), CURDATE())";
+      con.query(queryString, [user.user_id], (err, rows, fields) => {
+        if (err) {
+          //res.status(500)
+          return res.send({ error: "There was an error adding user to the database: " + err })
+        }
+      })
+
       res.redirect("/");
     });
   })(req, res, next);
