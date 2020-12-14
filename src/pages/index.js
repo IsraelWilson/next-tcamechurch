@@ -126,7 +126,7 @@ export default function Index({ user }) {
           }
 
           p {
-            text-align: center;
+            text-align: center;logout
           }
 
         `}</style>

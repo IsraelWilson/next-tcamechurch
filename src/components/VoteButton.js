@@ -1,7 +1,7 @@
 export default function VoteButton(props) {
 
   return (
-    <label>
+    <div>
       {props.name}
       <input name={props.name} type="checkbox" checked={props.checked} onChange={props.toggleSelected} disabled={props.disabled}/>
       <span className="checkmark"></span>
@@ -67,6 +67,6 @@ export default function VoteButton(props) {
         }
         `}
       </style>
-    </label>
+    </div>
   )
 }

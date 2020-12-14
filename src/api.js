@@ -43,13 +43,13 @@ router.get('/admins-candidates', ensureAuthenticated, (req, res) => {
       res.json({
         admins: adminRows,
         candidates: candidateRows
-      })      
+      })
     })
   })
 })
 
 // Get the active poll
-router.get('/poll', ensureAuthenticated, (req, res) => {
+router.get('/poll/active', ensureAuthenticated, (req, res) => {
   const queryString = "SELECT * from poll WHERE is_active IS TRUE";
 
   con.query(queryString, (err, rows, fields) => {
@@ -63,12 +63,14 @@ router.get('/poll', ensureAuthenticated, (req, res) => {
 
 // Get all the available candidates to vote for
 router.get('/candidates', ensureAuthenticated, (req, res) => {
-  const queryString = "SELECT candidate.candidate_id, candidate.candidate_name, candidate.poll_id FROM candidate INNER JOIN poll ON candidate.poll_id = poll.poll_id WHERE poll.is_active IS TRUE";
+  const queryString = "SELECT * FROM candidate WHERE poll_id = ?";
 
-  con.query(queryString, (err, rows, fields) => {
+  const poll = req.query.poll_id
+
+  con.query(queryString, [poll], (err, rows, fields) => {
     if (err) {
       res.status(500)
-      return res.send({ error: "There was an error querying the database: " + err })
+      return res.send({ error: `There was an error getting candidates for poll_id ${poll}:  + err` })
     }
     res.json(rows)
   })
@@ -99,147 +101,175 @@ router.put('/update', ensureAuthenticated, (req, res) => {
       return res.send({ error: "There was an error updating candidates: " + err })
     }
     candidateResult = rows.affectedRows
-  })
 
-  con.query(historyQueryString, [pollId, authId], (err, rows, fields) => {
+    con.query(historyQueryString, [pollId, authId], (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        return res.send({ error: "There was an error adding history: " + err })
+      }
+      historyResult = rows.affectedRows
+
+      res.json({
+        candidateRowsAffected: candidateResult,
+        historyRowsAffected: historyResult
+       })
+    })
+  })
+})
+
+// Get all polls
+router.get('/polls', ensureAuthenticated, (req, res) => {
+  const insertQueryString = "SELECT * FROM poll";
+
+  con.query(insertQueryString, (err, rows, fields) => {
     if (err) {
       res.status(500)
-      return res.send({ error: "There was an error adding history: " + err })
-    }
-    historyResult = rows.affectedRows
-  })
-
-  res.json({
-    candidateRowsAffected: candidateResult,
-    historyRowsAffected: historyResult
-   })
-})
-
-// Toggle voting access
-router.put('/toggleAccess', ensureAuthenticated, (req, res) => {
-  const queryString = "UPDATE user SET voted = 1 WHERE user_id = ?";
-  const id = req.body.id;
-
-  con.query(queryString, [id], (err, rows, fields) => {
-    if (err) {
-      res.send("There was an internal router error: " + err);
-    }
-
-    res.json(rows.affectedRows);
-  })
-})
-
-// Is voting open
-router.get('/open', ensureAuthenticated, (req, res) => {
-  const queryString = "SELECT * from open";
-
-  con.query(queryString, (err, rows, fields) => {
-    if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
+      return res.send({ error: "There was an error retreiving polls: " + err })
     }
     res.json(rows)
   })
 })
 
-// Toggle open state
-router.put('/toggleOpen', ensureAuthenticated, (req, res) => {
-  const queryString = "UPDATE open SET open = 0 WHERE open = 1";
+// Create new poll
+router.post('/poll', ensureAuthenticated, (req, res) => {
+  const insertQueryString = "INSERT INTO poll (is_active, created_at, updated_at) VALUES (0, CURDATE(), CURDATE())";
+  const updateQueryString = "UPDATE poll SET poll_name = CONCAT('Poll ', LAST_INSERT_ID()) WHERE poll_id = LAST_INSERT_ID()";
+  const selectQueryString = "SELECT * FROM poll WHERE poll_id = LAST_INSERT_ID()";
 
-  con.query(queryString, (err, rows, fields) => {
+  con.query(insertQueryString, (err, rows, fields) => {
     if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
+      res.status(500)
+      return res.send({ error: "There was an error creating new poll: " + err })
+    }
+    con.query(updateQueryString, (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        return res.send({ error: "There was an error updating poll: " + err })
+      }
+      con.query(selectQueryString, (err, rows, fields) => {
+        if (err) {
+          res.status(500)
+          return res.send({ error: "There was an error retreiving poll: " + err })
+        }
+        res.json(rows)
+      })
+    })
+  })
+})
+
+// Delete poll
+router.delete('/poll', ensureAuthenticated, (req, res) => {
+  const queryString = "DELETE FROM poll WHERE poll_id = ?";
+  const pollId = req.body.poll_id;
+
+  con.query(queryString, [pollId], (err, rows, fields) => {
+    if (err) {
+      res.status(500)
+      return res.send({ error: "There was an error deleting poll: " + err })
     }
     res.json(rows)
+  })
+})
+
+// Change the active poll
+router.put('/poll/toggle-active', ensureAuthenticated, (req, res) => {
+  const selectQueryString = "SELECT is_active from poll WHERE poll_id = ?";
+  const activateQueryString = "UPDATE poll SET is_active = 1 WHERE poll_id = ?";
+  const deactivateQueryString = "UPDATE poll SET is_active = 0 WHERE poll_id = ?";
+  const deactivateOthersQueryString = "UPDATE poll SET is_active = 0 WHERE poll_id != ?";
+
+  const pollId = req.body.poll_id
+
+  // Get poll active status
+  con.query(selectQueryString, [pollId], (err, rows, fields) => {
+    if (err) {
+      res.status(500)
+      return res.send({ error: "There was an error finding poll: " + err })
+    }
+
+    // Make sure poll was found
+    if(rows.length > 0) {
+      let isActive = rows[0].is_active
+
+      // Activate poll and deactivate any other active poll
+      if(!isActive) {
+        con.query(activateQueryString, [pollId], (err, result, fields) => {
+          if (err) {
+            res.status(500)
+            return res.send({ error: "There was an error activating deactivated poll: " + err })
+          }
+          // Deactivate all the other polls
+          con.query(deactivateOthersQueryString, [pollId], (err, result, fields) => {
+            if (err) {
+              res.status(500)
+              return res.send({ error: "There was an error deactivating the other polls: " + err })
+            }
+            return res.json(result)
+          })
+        })
+      }
+      // Deactivate the active poll
+      else {
+        con.query(deactivateQueryString, [pollId], (err, result, fields) => {
+          if (err) {
+            res.status(500)
+            return res.send({ error: "There was an error deactivating poll: " + err })
+          }
+          return res.json(result)
+        })
+      }
+    }
+    // Should probably add logic to handle when poll is not found
   })
 })
 
 // Delete candidate
-router.delete('/delete', ensureAuthenticated, (req, res) => {
-  const queryString = "DELETE FROM trustee WHERE name = ?";
-  const name = req.body.name;
+router.delete('/candidate', ensureAuthenticated, (req, res) => {
+  const queryString = "DELETE FROM candidate WHERE candidate_id = ?";
+  const candidateId = req.body.candidate_id;
 
-  con.query(queryString, [name], (err, rows, fields) => {
+  con.query(queryString, [candidateId], (err, rows, fields) => {
     if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
+      res.status(500)
+      return res.send({ error: "There was an error deleting candidate: " + err })
     }
-    res.json(rows.affectedRows)
+    res.json(rows)
   })
 })
 
 // Add candidate
-router.post('/add', ensureAuthenticated, (req, res) => {
-  const queryString = "SELECT * FROM trustee WHERE name = ?";
-  const queryString2 = "INSERT INTO trustee(name) VALUE(?)";
-  const name = req.body.name;
-  let found = false;
+router.post('/candidate', ensureAuthenticated, (req, res) => {
+  const insertQueryString = "INSERT INTO candidate (candidate_name, num_votes, poll_id, created_at, updated_at) VALUeS (?, 0, ?, CURDATE(), CURDATE())";
+  const selectQueryString = "SELECT * FROM candidate WHERE candidate_id = LAST_INSERT_ID()";
+  const name = req.body.candidate_name;
+  const poll = req.body.poll_id;
 
 
-  con.query(queryString, [name], (err, rows, fields) => {
+  con.query(insertQueryString, [name, poll], (err, result, fields) => {
     if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
+      res.status(500)
+      return res.send({ error: "There was an error adding candidate: " + err })
     }
-    if(rows.length > 0) {
-      found = true;
-    }
-  })
-
-  if(!found) {
-    con.query(queryString2, [name], (err, rows, fields) => {
+    con.query(selectQueryString, [name, poll], (err, result, fields) => {
       if (err) {
-        console.log(err);
-        res.send("There was an internal router error: " + err);
+        res.status(500)
+        return res.send({ error: "There was an error getting candidate: " + err })
       }
-      res.json(rows.affectedRows)
+      res.json(result)
     })
-  }
+  })
 })
 
 // Remove all candidates
-router.delete('/dropCandidates', ensureAuthenticated, (req, res) => {
-  const queryString = "TRUNCATE TABLE trustee";
+router.delete('/candidates', ensureAuthenticated, (req, res) => {
+  const queryString = "TRUNCATE TABLE candidate";
 
-  con.query(queryString, (err, rows, fields) => {
+  con.query(queryString, (err, result, fields) => {
     if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
+      res.status(500)
+      return res.send({ error: "There was an error deleting candidates: " + err })
     }
-  })
-})
-
-// Reset all users
-router.delete('/resetUsers', ensureAuthenticated, (req, res) => {
-  const queryString = "UPDATE user SET voted = 0";
-
-  con.query(queryString, (err, rows, fields) => {
-    if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
-    }
-  })
-})
-
-// Remove all candidates and reset users
-router.delete('/nuke', ensureAuthenticated, (req, res) => {
-  const queryString = "UPDATE user SET voted = 0";
-  const queryString2 = "TRUNCATE TABLE trustee";
-
-  con.query(queryString, (err, rows, fields) => {
-    if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
-    }
-  })
-
-  con.query(queryString2, (err, rows, fields) => {
-    if (err) {
-      console.log(err);
-      res.send("There was an internal router error: " + err);
-    }
-    res.json(rows.affectedRows)
+    res.json(result)
   })
 })
 
