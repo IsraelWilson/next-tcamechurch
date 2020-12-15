@@ -18,11 +18,12 @@ router.get("/callback", (req, res, next) => {
       if (err) return next(err);
 
       // Add the user to local database
+      // Shoud probably move this to api.js as its own route. If the user is logged in, we can run this query just fine
       const queryString = "INSERT IGNORE INTO user (auth_id, is_admin, created_at, updated_at) VALUES (?, 0, CURDATE(), CURDATE())";
       con.query(queryString, [user.user_id], (err, rows, fields) => {
         if (err) {
-          //res.status(500)
-          return res.send({ error: "There was an error adding user to the database: " + err })
+          console.log("There was an error while attempting to add user to database in auth-routes: " + err)
+          //return res.send({ error: "There was an error adding user to the database: " + err })
         }
       })
 
