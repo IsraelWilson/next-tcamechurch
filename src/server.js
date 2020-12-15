@@ -37,7 +37,7 @@ app.prepare().then(() => {
   server.use(session(sessionConfig));
 
   // Configuring Auth0 Strategy
-  let auth0Strategy = null
+  var auth0Strategy = null
   if(dev) {
     auth0Strategy = new Auth0Strategy(
       {
