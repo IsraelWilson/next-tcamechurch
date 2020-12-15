@@ -37,17 +37,33 @@ app.prepare().then(() => {
   server.use(session(sessionConfig));
 
   // Configuring Auth0 Strategy
-  const auth0Strategy = new Auth0Strategy(
-    {
-      domain: process.env.AUTH0_DOMAIN,
-      clientID: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      callbackURL: process.env.AUTH0_CALLBACK_URL
-    },
-    function(accessToken, refreshToken, extraParams, profile, done) {
-      return done(null, profile);
-    }
-  );
+  let auth0Strategy = null
+  if(dev) {
+    auth0Strategy = new Auth0Strategy(
+      {
+        domain: process.env.AUTH0_DOMAIN,
+        clientID: process.env.DEV_AUTH0_CLIENT_ID,
+        clientSecret: process.env.DEV_AUTH0_CLIENT_SECRET,
+        callbackURL: process.env.DEV_AUTH0_CALLBACK_URL
+      },
+      function(accessToken, refreshToken, extraParams, profile, done) {
+        return done(null, profile);
+      }
+    );
+  }
+  else {
+    auth0Strategy = new Auth0Strategy(
+      {
+        domain: process.env.AUTH0_DOMAIN,
+        clientID: process.env.AUTH0_CLIENT_ID,
+        clientSecret: process.env.AUTH0_CLIENT_SECRET,
+        callbackURL: process.env.AUTH0_CALLBACK_URL
+      },
+      function(accessToken, refreshToken, extraParams, profile, done) {
+        return done(null, profile);
+      }
+    );
+  }
 
   // Configuring Passport
   passport.use(auth0Strategy);
