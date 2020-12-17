@@ -4,6 +4,7 @@ import Router from 'next/router'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
+import VoteButton from '../components/VoteButton'
 
 export default function Vote(props) {
   const [selection, setSelection] = useState([])
