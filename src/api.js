@@ -76,45 +76,59 @@ router.get('/candidates', ensureAuthenticated, (req, res) => {
   })
 })
 
+// Helper function for update
+function getUpdatePromise(candidate) {
+  const candidateQueryString = "UPDATE candidate SET num_votes = num_votes + 1 WHERE candidate_id = ?";
+  const candidateId = candidate.candidate_id
+
+  return new Promise((resolve, reject) => {
+    con.query(candidateQueryString, [candidateId], (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        console.log("There was an error updating candidates: " + err)
+        return res.send({ error: "There was an error updating candidates: " + err })
+      }
+    })
+  })
+}
+
+// Helper function for update
+function getHistoryPromise(pollId, authId) {
+  const historyQueryString = "INSERT INTO history (poll_id, auth_id, created_at, updated_at) VALUES (?, ?, CURDATE(), CURDATE())";
+
+  return new Promise((resolve, reject) => {
+    con.query(historyQueryString, [pollId, authId], (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        console.log("There was an error adding history: " + err)
+        return res.send({ error: "There was an error adding history: " + err })
+      }
+    })
+  })
+}
+
 // Update votes
 router.put('/update', ensureAuthenticated, (req, res) => {
-  const candidateQueryString = "UPDATE candidate SET num_votes = num_votes + 1 WHERE candidate_id = ?";
-  const historyQueryString = "INSERT INTO history (poll_id, auth_id, created_at, updated_at) VALUES (?, ?, CURDATE(), CURDATE())";
 
   const data = req.body;
 
   const selection = data.selection;
   const pollId = selection[0].poll_id
   const authId = data.auth_id
-  const candidateIds = []
+  const promiseArr = []
 
-  let candidateResult = 0
-  let historyResult = 0
-
-  for(let i = 0; i < data.selection.length; i++) {
-    candidateIds.push(selection[i].candidate_id)
+  // In order to do a bulk update, we build an array of promises
+  // and execute them using Promise.all
+  // Need to add logic to handle error cases
+  // Should also be able to return the mysql query result using
+  // the resolve method in a promise
+  for(let i = 0; i < selection.length; i++) {
+    promiseArr.push(getUpdatePromise(selection[i]))
   }
 
-  con.query(candidateQueryString, [candidateIds], (err, rows, fields) => {
-    if (err) {
-      res.status(500)
-      return res.send({ error: "There was an error updating candidates: " + err })
-    }
-    candidateResult = rows.affectedRows
-
-    con.query(historyQueryString, [pollId, authId], (err, rows, fields) => {
-      if (err) {
-        res.status(500)
-        return res.send({ error: "There was an error adding history: " + err })
-      }
-      historyResult = rows.affectedRows
-
-      res.json({
-        candidateRowsAffected: candidateResult,
-        historyRowsAffected: historyResult
-       })
-    })
-  })
+  promiseArr.push(getHistoryPromise(pollId, authId))
+  Promise.all(promiseArr)
+  res.json({success: true})
 })
 
 // Get all polls
@@ -269,6 +283,23 @@ router.delete('/candidates', ensureAuthenticated, (req, res) => {
       res.status(500)
       return res.send({ error: "There was an error deleting candidates: " + err })
     }
+    res.json(result)
+  })
+})
+
+// Check if user is allowed to vote
+router.get('/history/:id', ensureAuthenticated, (req, res) => {
+  const queryString = "SELECT * FROM history WHERE auth_id = ?";
+
+  const authId = req.params.id
+
+  con.query(queryString, [authId], (err, result, fields) => {
+    if (err) {
+      res.status(500)
+      console.log("There was an error retreiving history: " + err)
+      return res.send({ error: "There was an error retreiving history: " + err })
+    }
+
     res.json(result)
   })
 })
