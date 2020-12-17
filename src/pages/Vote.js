@@ -5,7 +5,6 @@ import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
 import VoteButton from '../components/VoteButton'
-import ThankYou from '../components/ThankYou'
 
 export default function Vote(props) {
   const [selection, setSelection] = useState([])

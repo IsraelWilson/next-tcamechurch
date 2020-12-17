@@ -2,7 +2,6 @@ import React from 'react'
 import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
-import fetch from 'isomorphic-unfetch'
 
 export default class Home extends React.Component {
   constructor(props) {
