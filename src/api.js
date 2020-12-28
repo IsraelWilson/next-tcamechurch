@@ -117,6 +117,8 @@ router.put('/update', ensureAuthenticated, (req, res) => {
   const authId = data.auth_id
   const promiseArr = []
 
+  console.log(selection)
+
   // In order to do a bulk update, we build an array of promises
   // and execute them using Promise.all
   // Need to add logic to handle error cases

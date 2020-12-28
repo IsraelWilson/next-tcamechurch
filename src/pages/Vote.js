@@ -47,6 +47,7 @@ export default function Vote(props) {
       auth_id: props.user.user_id,
       selection: selection
     }
+    console.log(selection)
 
     const res = await fetch("/update", {
       method: "PUT",
