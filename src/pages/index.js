@@ -4,6 +4,7 @@ import Meta from '../components/Meta.js'
 import Container from '../components/Container.js'
 import Row from '../components/Row.js'
 import Column from '../components/Column.js'
+import Calandar from '../components/Calandar.js'
 
 export default function Index({ user }) {
   return (

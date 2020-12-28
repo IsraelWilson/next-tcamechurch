@@ -222,7 +222,7 @@ export default function Vote(props) {
 
 
   return (
-    history.length > 0 ?
+    history.length > 0 && !isAdmin() ?
     <div>Your vote has been submitted.  Thank you!</div>
     :
     getView()
