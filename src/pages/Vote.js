@@ -113,7 +113,7 @@ export default function Vote(props) {
             </>
           )}
         </Row>
-        <div className="selectionCount">{selection.length}</div>
+        <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
       </div>
         {buttons(selection)}
         <button onClick={e => submit(e)}>SUBMIT</button>
@@ -126,9 +126,15 @@ export default function Vote(props) {
             margin: auto;
             width: 100%;
           }
-          
-          .selectionCount {
+
+          .selection-count {
             font-size: 52px;
+          }
+
+          .selection-row {
+            display: flex;
+            justify-content: flex-end;
+            position: sticky;
           }
 
           .nav-link {
