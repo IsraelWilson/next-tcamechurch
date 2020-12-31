@@ -89,27 +89,56 @@ export default function Vote(props) {
     return (
       isConfirmed ?
       <Container>
-        <Row>
+      <div className="parent">
+        <Row justify="flex-end">
           {!isAdmin() && (
-            <Link href="/logout">
-              <a>LOGOUT</a>
-            </Link>
+              <div className="nav-link">
+                <Link href="/logout">
+                  <a>LOGOUT</a>
+                </Link>
+              </div>
           )}
           {isAdmin() && (
             <>
-              <Link href="/logout">
-                <a>LOGOUT</a>
-              </Link>
-              <Link href="/Admin">
-                <a>ADMIN</a>
-              </Link>
+              <div className="nav-link">
+                <Link href="/logout">
+                  <a>LOGOUT</a>
+                </Link>
+              </div>
+              <div className="nav-link">
+                <Link href="/Admin">
+                  <a>ADMIN</a>
+                </Link>
+              </div>
             </>
           )}
         </Row>
+        <div className="selectionCount">{selection.length}</div>
+      </div>
         {buttons(selection)}
         <button onClick={e => submit(e)}>SUBMIT</button>
         <button onClick={e => cancel(e)}>CANCEL</button>
         <style jsx>{`
+          .parent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: auto;
+            width: 100%;
+          }
+          
+          .selectionCount {
+            font-size: 52px;
+          }
+
+          .nav-link {
+              margin: 25px;
+          }
+
+          .nav {
+            display: flex;
+          }
+
           form {
             padding: 2rem;
           }
@@ -155,26 +184,61 @@ export default function Vote(props) {
       </Container>
       :
       <Container>
-        <Row>
+      <div className="parent">
+        <Row justify="flex-end">
           {!isAdmin() && (
-            <Link href="/logout">
-              <a>LOGOUT</a>
-            </Link>
+              <div className="nav-link">
+                <Link href="/logout">
+                  <a>LOGOUT</a>
+                </Link>
+                </div>
           )}
           {isAdmin() && (
             <>
-              <Link href="/logout">
-                <a>LOGOUT</a>
-              </Link>
-              <Link href="/Admin">
-                <a>ADMIN</a>
-              </Link>
+              <div className="nav-link">
+                <Link href="/logout">
+                  <a>LOGOUT</a>
+                </Link>
+              </div>
+              <div className="nav-link">
+                <Link href="/Admin">
+                  <a>ADMIN</a>
+                </Link>
+              </div>
             </>
           )}
         </Row>
+        <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
+      </div>
         {buttons(props.candidates)}
         <button onClick={e => confirm(e)}>CONFIRM</button>
         <style jsx>{`
+          .parent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: auto;
+            width: 100%;
+          }
+
+          .selection-count {
+            font-size: 52px;
+          }
+
+          .selection-row {
+            display: flex;
+            justify-content: flex-end;
+            position: sticky;
+          }
+
+          .nav-link {
+              margin: 25px;
+          }
+
+          .nav {
+            display: flex;
+          }
+
           form {
             padding: 2rem;
           }

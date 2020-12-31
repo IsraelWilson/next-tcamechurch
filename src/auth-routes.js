@@ -44,8 +44,8 @@ else {
   router.get("/logout", (req, res) => {
     req.logout();
 
-    const {AUTH0_DOMAIN, DEV_AUTH0_CLIENT_ID, DEV_BASE_URL} = process.env;
-    res.redirect(`https://${AUTH0_DOMAIN}/logout?client_id=${DEV_AUTH0_CLIENT_ID}&returnTo=${DEV_BASE_URL}`);
+    const {DEV_AUTH0_DOMAIN, DEV_AUTH0_CLIENT_ID, DEV_BASE_URL} = process.env;
+    res.redirect(`https://${DEV_AUTH0_DOMAIN}/logout?client_id=${DEV_AUTH0_CLIENT_ID}&returnTo=${DEV_BASE_URL}`);
   });
 }
 
