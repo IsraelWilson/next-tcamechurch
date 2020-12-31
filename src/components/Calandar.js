@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 
 export default function Calandar(props) {
   const [calendar, setCalendar] = useState([])
 
   useEffect(() => {
-    setCalendar(initCalendar(moment().format("MMMM YYYY")))
-  })
+    setCalendar(prevState => [...prevState, initCalendar(moment().format("MMMM YYYY"))])
+  }, [])
 
   function initCalendar(date) {
-    const newCal = calendar
+    const newCal = []
     const numDays = moment(date).daysInMonth()
     const offset = Math.floor((42 - numDays) / 2)
 
@@ -38,9 +38,10 @@ export default function Calandar(props) {
   }
 
   function renderCalendar() {
-    const cells = []
+    let cells = []
     const rows = []
     const newCal = calendar
+    console.log("renderCalendar", calendar)
 
     for(let i = 0; i < newCal.length; i++) {
       if(7 % i === 0 && i !== 0) {
@@ -54,7 +55,6 @@ export default function Calandar(props) {
 
   return (
     <>
-      <div>{renderCalendar()}</div>
     </>
   )
 }

@@ -89,7 +89,6 @@ export default function Vote(props) {
     return (
       isConfirmed ?
       <Container>
-      <div className="parent">
         <Row justify="flex-end">
           {!isAdmin() && (
               <div className="nav-link">
@@ -113,8 +112,9 @@ export default function Vote(props) {
             </>
           )}
         </Row>
+        <div className="parent">
         <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
-      </div>
+        </div>
         {buttons(selection)}
         <button onClick={e => submit(e)}>SUBMIT</button>
         <button onClick={e => cancel(e)}>CANCEL</button>
@@ -138,7 +138,7 @@ export default function Vote(props) {
           }
 
           .nav-link {
-              margin: 25px;
+              margin: 20px;
           }
 
           .nav {
@@ -190,7 +190,6 @@ export default function Vote(props) {
       </Container>
       :
       <Container>
-      <div className="parent">
         <Row justify="flex-end">
           {!isAdmin() && (
               <div className="nav-link">
@@ -214,8 +213,9 @@ export default function Vote(props) {
             </>
           )}
         </Row>
+        <div className="parent">
         <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
-      </div>
+        </div>
         {buttons(props.candidates)}
         <button onClick={e => confirm(e)}>CONFIRM</button>
         <style jsx>{`
@@ -238,7 +238,7 @@ export default function Vote(props) {
           }
 
           .nav-link {
-              margin: 25px;
+              margin: 20px;
           }
 
           .nav {
