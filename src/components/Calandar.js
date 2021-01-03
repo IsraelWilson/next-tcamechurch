@@ -5,7 +5,7 @@ export default function Calandar(props) {
   const [calendar, setCalendar] = useState([])
 
   useEffect(() => {
-    setCalendar(prevState => [...prevState, initCalendar(moment().format("MMMM YYYY"))])
+    setCalendar(() => initCalendar(moment().format("MMMM YYYY")))
   }, [])
 
   function initCalendar(date) {
@@ -26,6 +26,7 @@ export default function Calandar(props) {
       newCal.push(i)
     }
 
+    console.log("initCalendar", newCal)
     setCalendar(newCal)
   }
 
@@ -54,7 +55,6 @@ export default function Calandar(props) {
   }
 
   return (
-    <>
-    </>
+    <>{renderCalendar()}</>
   )
 }

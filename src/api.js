@@ -253,27 +253,38 @@ router.delete('/candidate', ensureAuthenticated, (req, res) => {
   })
 })
 
-// Add candidate
-router.post('/candidate', ensureAuthenticated, (req, res) => {
-  const insertQueryString = "INSERT INTO candidate (candidate_name, num_votes, poll_id, created_at, updated_at) VALUeS (?, 0, ?, CURDATE(), CURDATE())";
-  const selectQueryString = "SELECT * FROM candidate WHERE candidate_id = LAST_INSERT_ID()";
-  const name = req.body.candidate_name;
-  const poll = req.body.poll_id;
+// Helper function for candidate
+function getCandidatePromise(candidate, poll) {
+  const queryString = "INSERT INTO candidate (candidate_name, num_votes, poll_id, created_at, updated_at) VALUeS (?, 0, ?, CURDATE(), CURDATE())";
 
-
-  con.query(insertQueryString, [name, poll], (err, result, fields) => {
-    if (err) {
-      res.status(500)
-      return res.send({ error: "There was an error adding candidate: " + err })
-    }
-    con.query(selectQueryString, [name, poll], (err, result, fields) => {
+  return new Promise((resolve, reject) => {
+    con.query(queryString, [candidate, poll], (err, rows, fields) => {
       if (err) {
         res.status(500)
-        return res.send({ error: "There was an error getting candidate: " + err })
+        console.log("There was an error adding candidates: " + err)
+        return res.send({ error: "There was an error adding candidates: " + err })
       }
-      res.json(result)
+      resolve({
+        candidate_id: rows.insertId,
+        candidate_name: candidate,
+        poll_id: poll,
+      })
     })
   })
+}
+
+// Add candidate
+router.post('/candidate', ensureAuthenticated, (req, res) => {
+  //const selectQueryString = "SELECT * FROM candidate WHERE candidate_id = LAST_INSERT_ID()";
+  const name = req.body.candidate_name;
+  const poll = req.body.poll_id;
+  const promiseArr = []
+
+  for(let i = 0; i < name.length; i++) {
+    promiseArr.push(getCandidatePromise(name[i], poll))
+  }
+
+  Promise.all(promiseArr).then(values => res.json(values))
 })
 
 // Remove all candidates

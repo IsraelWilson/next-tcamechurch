@@ -5,6 +5,7 @@ import Container from '../components/Container.js'
 import Row from '../components/Row'
 import Column from '../components/Column'
 import VoteButton from '../components/VoteButton'
+import SelectionItem from '../components/SelectionItem'
 
 export default function Vote(props) {
   const [selection, setSelection] = useState([])
@@ -23,6 +24,10 @@ export default function Vote(props) {
     return (
       candidates.map(candidate => <VoteButton name={candidate.candidate_name} checked={contains(selection, candidate) ? true : false} toggleSelected={() => toggleSelected(candidate)} disabled={(selection.length === 19 && !contains(selection, candidate)) ? true : false} />)
     )
+  }
+
+  function selectionList(candidates) {
+    return candidates.map(candidate => <SelectionItem name={candidate.candidate_name}/ >)
   }
 
   function confirm(event) {
@@ -47,7 +52,6 @@ export default function Vote(props) {
       auth_id: props.user.user_id,
       selection: selection
     }
-    console.log(selection)
 
     const res = await fetch("/update", {
       method: "PUT",
@@ -113,9 +117,9 @@ export default function Vote(props) {
           )}
         </Row>
         <div className="parent">
-        <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
+          <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
         </div>
-        {buttons(selection)}
+        {selectionList(selection)}
         <button onClick={e => submit(e)}>SUBMIT</button>
         <button onClick={e => cancel(e)}>CANCEL</button>
         <style jsx>{`
@@ -235,6 +239,11 @@ export default function Vote(props) {
             display: flex;
             justify-content: flex-end;
             position: sticky;
+          }
+
+          .selection {
+            margin-bottom: 12px;
+            font-size: 2.5rem;
           }
 
           .nav-link {

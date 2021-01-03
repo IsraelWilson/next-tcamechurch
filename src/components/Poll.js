@@ -18,7 +18,13 @@ export default function Poll(props) {
   function addCandidate(event) {
     event.preventDefault()
 
-    const newCandidates = candidates
+    let newCandidates = candidates
+
+    // Get names entered by the user
+    let parsedName = name
+    parsedName = parsedName.split(",")
+    parsedName.forEach(item => item.trim());
+
 
     // Need to add input validation
     if(name !== "") {
@@ -28,13 +34,13 @@ export default function Poll(props) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          candidate_name: name,
+          candidate_name: parsedName,
           poll_id: props.poll_id
         })
       })
       .then(result => result.json())
       .then(data => {
-        newCandidates.push(data[0])
+        newCandidates = newCandidates.concat(data)
         setCandidates([...newCandidates])
       })
     }

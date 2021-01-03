@@ -72,7 +72,6 @@ export default function Index({ user }) {
       </Container>
       :
       <Container>
-      <Calandar/>
         <Row justify="center">
           <Column align="center">
             <Link href="/login">
