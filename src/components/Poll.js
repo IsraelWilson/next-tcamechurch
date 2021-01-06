@@ -70,6 +70,29 @@ export default function Poll(props) {
     asyncDel()
   }
 
+  function reset() {
+    fetch("/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        poll_id: props.poll_id
+      })
+    })
+    .then(() => {
+      console.log("reset")
+      async function getCandidates() {
+        const encodedValue = encodeURIComponent(props.poll_id)
+        const result = await fetch(`/candidates?poll_id=${encodedValue}`)
+        const candidates = await result.json()
+        console.log(candidates)
+        setCandidates(candidates)
+      }
+      getCandidates()
+    })
+  }
+
   return (
     <Column>
       <Row>
@@ -80,6 +103,7 @@ export default function Poll(props) {
         :
           <button type="button" onClick={props.activate}>ACTIVATE</button>
         }
+        <button type="button" onClick={() => reset()}>RESET</button>
       </Row>
       <Column>
         {candidates.map(candidate =>

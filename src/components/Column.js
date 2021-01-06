@@ -9,7 +9,7 @@ export default function Column(props) {
           display: flex;
           flex-direction: column;
           flex-basis: 22%;
-          flex-grow: 1;
+          flex-grow: ${props.grow};
           flex-shrink: 0;
           justify-content: ${props.justify};
           align-items: ${props.align};
@@ -22,7 +22,7 @@ export default function Column(props) {
             display: flex;
             flex-direction: column;
             flex-basis: 47%;
-            flex-grow: 1;
+            flex-grow: ${props.grow};
             flex-shrink: 0;
             justify-content: ${props.justify};
             align-items: ${props.align};
@@ -36,7 +36,7 @@ export default function Column(props) {
             display: flex;
             flex-direction: column;
             flex-basis: 100%;
-            flex-grow: 1;
+            flex-grow: ${props.grow};
             flex-shrink: 0;
             justify-content: ${props.justify};
             align-items: ${props.align};

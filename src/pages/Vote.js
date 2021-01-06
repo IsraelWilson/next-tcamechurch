@@ -119,9 +119,15 @@ export default function Vote(props) {
         <div className="parent">
           <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
         </div>
-        {selectionList(selection)}
-        <button onClick={e => submit(e)}>SUBMIT</button>
-        <button onClick={e => cancel(e)}>CANCEL</button>
+        <Row justify="center">
+          <Column>
+            {selectionList(selection)}
+            <Row>
+              <button onClick={e => submit(e)}>SUBMIT</button>
+              <button className="cancel" onClick={e => cancel(e)}>CANCEL</button>
+            </Row>
+          </Column>
+        </Row>
         <style jsx>{`
           .parent {
             position: fixed;
@@ -165,10 +171,10 @@ export default function Vote(props) {
             margin-left: 0.25rem;
             margin-bottom: 1.5rem;
             text-decoration: none;
-            background: #feda6a;
-            color: #232323;
+            background: purple;
+            color: white;
             font-family: "Roboto", sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             cursor: pointer;
             text-align: center;
             transition: background 250ms ease-in-out,
@@ -179,7 +185,7 @@ export default function Vote(props) {
 
           button:hover,
           button:focus {
-            background: #d6a206;
+            background: #B270A9;
           }
 
           button:focus {
@@ -188,6 +194,28 @@ export default function Vote(props) {
           }
 
           button:active {
+            transform: scale(0.99);
+          }
+
+          button.cancel {
+            font-size: 1rem;
+            border: 5px solid #f44336;
+            background: white;
+            color: #f44336;
+          }
+
+          button.cancel:hover,
+          button:focus {
+            background: #f44336;
+            color: white;
+          }
+
+          button.cancel:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+          }
+
+          button.cancel:active {
             transform: scale(0.99);
           }
         `}</style>
@@ -218,10 +246,14 @@ export default function Vote(props) {
           )}
         </Row>
         <div className="parent">
-        <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
+          <div className="selection-row"><div className="selection-count">{selection.length}</div></div>
         </div>
-        {buttons(props.candidates)}
-        <button onClick={e => confirm(e)}>CONFIRM</button>
+        <Row justify="center">
+          <Column>
+            {buttons(props.candidates)}
+            <button onClick={e => confirm(e)}>CONFIRM</button>
+          </Column>
+        </Row>
         <style jsx>{`
           .parent {
             position: fixed;
@@ -270,10 +302,10 @@ export default function Vote(props) {
             margin-left: 0.25rem;
             margin-bottom: 1.5rem;
             text-decoration: none;
-            background: #feda6a;
-            color: #232323;
+            background: purple;
+            color: white;
             font-family: "Roboto", sans-serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             cursor: pointer;
             text-align: center;
             transition: background 250ms ease-in-out,
@@ -284,12 +316,12 @@ export default function Vote(props) {
 
           button:hover,
           button:focus {
-            background: #d6a206;
+            background: #B270A9;
           }
 
           button:focus {
             outline: 1px solid #fff;
-            outline-offset: -4px;// Helper function for update
+            outline-offset: -4px;
           }
 
           button:active {
@@ -303,7 +335,18 @@ export default function Vote(props) {
 
   return (
     history.length > 0 && !isAdmin() ?
-    <div>Your vote has been submitted.  Thank you!</div>
+    <Container>
+      <Row justify="center">
+        <Column>
+          <p>Your vote has been submitted.  Thank you!</p>
+        </Column>
+      </Row>
+      <style jsx>{`
+        p {
+          font-size: 2rem;
+        }
+      `}</style>
+    </Container>
     :
     getView()
   )

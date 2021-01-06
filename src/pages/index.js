@@ -18,57 +18,21 @@ export default function Index({ user }) {
           </Column>
         </Row>
         <style jsx>{`
-          form{
-            padding: 2rem;
-          }
-
-          h1 {
-            font-size: 2rem;
+          a:link, a:visited {
+            background-color: purple;
+            color: white;
+            padding: 14px 25px;
             text-align: center;
-          }
-
-          input {
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-          }
-
-          button {
-            border: none;
-            padding: 1rem 2rem;
-            margin-left: 0.25rem;
-            margin-bottom: 1.5rem;
             text-decoration: none;
-            background: #feda6a;
-            color: #232323;
+            display: inline-block;
             font-family: "Roboto", sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background 250ms ease-in-out,
-                        transform 150ms ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
+            font-size: 2rem;
           }
 
-          button:hover,
-          button:focus {
-            background: #d6a206;
+          a:hover, a:active {
+            background-color: #B270A9;
           }
-
-          button:focus {
-            outline: 1px solid #fff;
-            outline-offset: -4px;
-          }
-
-          button:active {
-            transform: scale(0.99);
-          }
-
-          p {
-            text-align: center;
-          }
-
-        `}</style>
+          `}</style>
       </Container>
       :
       <Container>
@@ -80,57 +44,21 @@ export default function Index({ user }) {
           </Column>
         </Row>
         <style jsx>{`
-          form{
-            padding: 2rem;
-          }
-
-          h1 {
-            font-size: 2rem;
+          a:link, a:visited {
+            background-color: purple;
+            color: white;
+            padding: 14px 25px;
             text-align: center;
-          }
-
-          input {
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-          }
-
-          button {
-            border: none;
-            padding: 1rem 2rem;
-            margin-left: 0.25rem;
-            margin-bottom: 1.5rem;
             text-decoration: none;
-            background: #feda6a;
-            color: #232323;
+            display: inline-block;
             font-family: "Roboto", sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background 250ms ease-in-out,
-                        transform 150ms ease;
-            -webkit-appearance: none;
-            -moz-appearance: none;
+            font-size: 2rem;
           }
 
-          button:hover,
-          button:focus {
-            background: #d6a206;
+          a:hover, a:active {
+            background-color: #B270A9;
           }
-
-          button:focus {
-            outline: 1px solid #fff;
-            outline-offset: -4px;
-          }
-
-          button:active {
-            transform: scale(0.99);
-          }
-
-          p {
-            text-align: center;logout
-          }
-
-        `}</style>
+          `}</style>
       </Container>
   )
 }

@@ -317,4 +317,34 @@ router.get('/history/:id', ensureAuthenticated, (req, res) => {
   })
 })
 
+// Reset poll
+router.post('/reset', ensureAuthenticated, (req, res) => {
+  const updateQueryString = "UPDATE candidate SET num_votes = 0 WHERE poll_id = ?";
+  const deleteQueryString = "DELETE FROM history WHERE poll_id = ?";
+  const poll = req.body.poll_id
+
+  const updatePromise = new Promise((resolve, reject) => {
+    con.query(updateQueryString, [poll], (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        console.log("There was an error adding candidates: " + err)
+        return res.send({ error: "There was an error adding candidates: " + err })
+      }
+    })
+  })
+
+  const deletePromise = new Promise((resolve, reject) => {
+    con.query(deleteQueryString, [poll], (err, rows, fields) => {
+      if (err) {
+        res.status(500)
+        console.log("There was an error adding candidates: " + err)
+        return res.send({ error: "There was an error adding candidates: " + err })
+      }
+    })
+  })
+
+  Promise.all([updatePromise, deletePromise])
+  res.json({success: true})
+})
+
 module.exports = router;

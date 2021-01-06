@@ -16,7 +16,7 @@ export default class Row extends React.Component {
           div {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
+            flex-wrap: ${this.props.wrap};
             flex-grow: 1;
             background: ${this.props.bg} no-repeat center center fixed;
             background-size: cover;
