@@ -59,7 +59,7 @@ export default function Vote(props) {
       body: JSON.stringify(data)
     })
 
-    Router.push("/")
+    Router.push("/ThankYou")
   }
 
   function contains(arr, obj) {

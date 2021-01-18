@@ -10,6 +10,11 @@ export default function Index({ user }) {
   return (
     user ?
       <Container>
+        <Row justify="flex-end">
+          <Link href="/logout">
+            <a>LOGOUT</a>
+          </Link>
+        </Row>
         <Row justify="center">
           <Column align="center">
             <Link href="/Vote">
