@@ -33,7 +33,7 @@ export default function Vote(props) {
   function confirm(event) {
     event.preventDefault()
 
-    if(selection.length !== 19){
+    if(selection.length !== 15){
       return
     }
 
